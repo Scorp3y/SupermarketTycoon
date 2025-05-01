@@ -33,7 +33,7 @@ public class Customer : MonoBehaviour
 
     private int totalSpent = 0;
 
-    private bool isProcessing = false; 
+    private bool isProcessing = false;
 
     void Start()
     {
@@ -59,7 +59,7 @@ public class Customer : MonoBehaviour
     {
         if (!agent.pathPending && agent.remainingDistance < 0.5f && !isProcessing)
         {
-            isProcessing = true; 
+            isProcessing = true;
 
             if (isShopping)
                 StartCoroutine(TakeProduct());
@@ -78,11 +78,11 @@ public class Customer : MonoBehaviour
         if (success)
         {
             totalSpent += desired.productData.price * desired.quantity;
-            currentProductIndex++; 
+            currentProductIndex++;
         }
         else
         {
-            currentProductIndex = desiredProducts.Count; 
+            currentProductIndex = desiredProducts.Count;
             isShopping = false;
         }
 
