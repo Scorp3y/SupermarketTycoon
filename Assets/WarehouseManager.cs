@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -123,7 +123,7 @@ public class WarehouseManager : MonoBehaviour
         }
 
 
-        dataLoaded = true; 
+        dataLoaded = true;
     }
 
     void OnEnable()
@@ -200,6 +200,3 @@ public class WarehouseManager : MonoBehaviour
 
 
 }
-
-
-
