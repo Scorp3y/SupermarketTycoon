@@ -59,6 +59,34 @@ MonoBehaviour:
     m_Key: setting_deletesave
     m_Metadata:
       m_Items: []
+  - m_Id: 1394528528998400
+    m_Key: fact_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394568811094016
+    m_Key: fact_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394570635616256
+    m_Key: fact_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394572359475200
+    m_Key: fact_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394574314020864
+    m_Key: fact_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394576151126016
+    m_Key: fact_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394577816264704
+    m_Key: loading_base
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

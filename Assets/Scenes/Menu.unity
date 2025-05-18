@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 12172217}
   - component: {fileID: 12172216}
   - component: {fileID: 12172218}
+  - component: {fileID: 12172219}
   m_Layer: 5
   m_Name: textLanguage
   m_TagString: Untagged
@@ -180,10 +181,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Language
+  m_text: "\u042F\u0437\u044B\u043A"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
-  m_sharedMaterial: {fileID: 6488789454558138175, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
+  m_sharedMaterial: {fileID: 7323923695346362313, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -304,6 +305,21 @@ MonoBehaviour:
       type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 
+--- !u!114 &12172219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12172214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 80
+  sizeRussian: 80
+  excludeFromFontChange: 0
 --- !u!1 &66690834
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +408,7 @@ GameObject:
   - component: {fileID: 264176476}
   - component: {fileID: 264176475}
   - component: {fileID: 264176477}
+  - component: {fileID: 264176478}
   m_Layer: 5
   m_Name: mainTextSetting1
   m_TagString: Untagged
@@ -438,10 +455,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SETTING
+  m_text: "\u041D\u0410\u0421\u0422\u0420\u041E\u0419\u041A\u0418"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
-  m_sharedMaterial: {fileID: 6488789454558138175, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
+  m_sharedMaterial: {fileID: 7323923695346362313, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -562,6 +579,21 @@ MonoBehaviour:
       type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 
+--- !u!114 &264176478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264176473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 120
+  sizeRussian: 80
+  excludeFromFontChange: 0
 --- !u!1 &269286093
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &269286094
 RectTransform:
   m_ObjectHideFlags: 0
@@ -647,6 +679,7 @@ GameObject:
   - component: {fileID: 336539725}
   - component: {fileID: 336539724}
   - component: {fileID: 336539726}
+  - component: {fileID: 336539727}
   m_Layer: 5
   m_Name: textUnMute
   m_TagString: Untagged
@@ -693,10 +726,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Unmute
+  m_text: "\u0412\u043A\u043B. \u0417\u0432\u0443\u043A"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
-  m_sharedMaterial: {fileID: 6488789454558138175, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
+  m_sharedMaterial: {fileID: 7323923695346362313, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -720,8 +753,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -817,6 +850,21 @@ MonoBehaviour:
       type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 
+--- !u!114 &336539727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336539722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 80
+  sizeRussian: 50
+  excludeFromFontChange: 0
 --- !u!1 &375354665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1332,6 +1380,7 @@ GameObject:
   - component: {fileID: 462769486}
   - component: {fileID: 462769485}
   - component: {fileID: 462769484}
+  - component: {fileID: 462769487}
   m_Layer: 5
   m_Name: ExitButt
   m_TagString: Untagged
@@ -1466,6 +1515,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462769482}
   m_CullTransparentMesh: 1
+--- !u!114 &462769487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462769482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:85d00f41d265b6b49822ddcdb97a28e5
+    m_TableEntryReference:
+      m_KeyId: 1759487041536
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &484852245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,6 +1704,7 @@ GameObject:
   - component: {fileID: 557687442}
   - component: {fileID: 557687444}
   - component: {fileID: 557687443}
+  - component: {fileID: 557687445}
   m_Layer: 5
   m_Name: Text (TMP) (3)
   m_TagString: Untagged
@@ -1750,6 +1828,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557687441}
   m_CullTransparentMesh: 1
+--- !u!114 &557687445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557687441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 60
+  sizeRussian: 40
+  excludeFromFontChange: 1
 --- !u!1 &606483953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1787,7 +1880,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -554, y: 14}
+  m_AnchoredPosition: {x: -554, y: 15}
   m_SizeDelta: {x: 745.7079, y: 174.0734}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &606483955
@@ -2500,6 +2593,7 @@ GameObject:
   - component: {fileID: 766195027}
   - component: {fileID: 766195026}
   - component: {fileID: 766195028}
+  - component: {fileID: 766195029}
   m_Layer: 5
   m_Name: textMute
   m_TagString: Untagged
@@ -2546,10 +2640,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mute
+  m_text: "\u041E\u0442\u043A\u043B. \u0417\u0432\u0443\u043A"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
-  m_sharedMaterial: {fileID: 6488789454558138175, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
+  m_sharedMaterial: {fileID: 7323923695346362313, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2573,8 +2667,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2670,6 +2764,21 @@ MonoBehaviour:
       type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 
+--- !u!114 &766195029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766195024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 80
+  sizeRussian: 50
+  excludeFromFontChange: 0
 --- !u!1 &780541672
 GameObject:
   m_ObjectHideFlags: 0
@@ -2831,6 +2940,7 @@ GameObject:
   - component: {fileID: 824318409}
   - component: {fileID: 824318411}
   - component: {fileID: 824318410}
+  - component: {fileID: 824318412}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2954,6 +3064,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824318408}
   m_CullTransparentMesh: 1
+--- !u!114 &824318412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824318408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 60
+  sizeRussian: 40
+  excludeFromFontChange: 1
 --- !u!1 &1054143539
 GameObject:
   m_ObjectHideFlags: 0
@@ -3116,6 +3241,7 @@ GameObject:
   - component: {fileID: 1061670186}
   - component: {fileID: 1061670185}
   - component: {fileID: 1061670187}
+  - component: {fileID: 1061670188}
   m_Layer: 5
   m_Name: textGameplay
   m_TagString: Untagged
@@ -3286,6 +3412,21 @@ MonoBehaviour:
       type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 
+--- !u!114 &1061670188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061670183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 80
+  sizeRussian: 80
+  excludeFromFontChange: 0
 --- !u!1 &1094730429
 GameObject:
   m_ObjectHideFlags: 0
@@ -3428,20 +3569,6 @@ MonoBehaviour:
   russianFont: {fileID: 11400000, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
   englishFontSize: 80
   russianFontSize: 50
-  localizedTexts:
-  - {fileID: 1630157307}
-  - {fileID: 1893851042}
-  - {fileID: 1485023567}
-  - {fileID: 264176475}
-  - {fileID: 1447375722}
-  - {fileID: 1594297637}
-  - {fileID: 1061670185}
-  - {fileID: 12172216}
-  - {fileID: 1258175461}
-  - {fileID: 766195026}
-  - {fileID: 1850228413}
-  - {fileID: 1457742899}
-  - {fileID: 336539724}
 --- !u!1 &1155486718
 GameObject:
   m_ObjectHideFlags: 0
@@ -3585,7 +3712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1203573380
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3625,6 +3752,7 @@ GameObject:
   - component: {fileID: 1258175462}
   - component: {fileID: 1258175461}
   - component: {fileID: 1258175463}
+  - component: {fileID: 1258175464}
   m_Layer: 5
   m_Name: textMusic
   m_TagString: Untagged
@@ -3671,10 +3799,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Music
+  m_text: "\u041C\u0443\u0437\u044B\u043A\u0430"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
-  m_sharedMaterial: {fileID: 6488789454558138175, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
+  m_sharedMaterial: {fileID: 7323923695346362313, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3795,6 +3923,21 @@ MonoBehaviour:
       type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 
+--- !u!114 &1258175464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258175459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 80
+  sizeRussian: 80
+  excludeFromFontChange: 0
 --- !u!1 &1283967781
 GameObject:
   m_ObjectHideFlags: 0
@@ -3806,6 +3949,7 @@ GameObject:
   - component: {fileID: 1283967782}
   - component: {fileID: 1283967784}
   - component: {fileID: 1283967783}
+  - component: {fileID: 1283967785}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -3929,6 +4073,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1283967781}
   m_CullTransparentMesh: 1
+--- !u!114 &1283967785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283967781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 60
+  sizeRussian: 40
+  excludeFromFontChange: 1
 --- !u!1 &1357170571
 GameObject:
   m_ObjectHideFlags: 0
@@ -4087,6 +4246,7 @@ GameObject:
   - component: {fileID: 1447375723}
   - component: {fileID: 1447375722}
   - component: {fileID: 1447375724}
+  - component: {fileID: 1447375725}
   m_Layer: 5
   m_Name: mainTextSetting2
   m_TagString: Untagged
@@ -4133,10 +4293,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SETTING
+  m_text: "\u041D\u0410\u0421\u0422\u0420\u041E\u0419\u041A\u0418"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
-  m_sharedMaterial: {fileID: 6488789454558138175, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
+  m_sharedMaterial: {fileID: 7323923695346362313, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4257,6 +4417,21 @@ MonoBehaviour:
       type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 
+--- !u!114 &1447375725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447375720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 120
+  sizeRussian: 80
+  excludeFromFontChange: 0
 --- !u!1 &1451397172
 GameObject:
   m_ObjectHideFlags: 0
@@ -4514,6 +4689,7 @@ GameObject:
   - component: {fileID: 1485023568}
   - component: {fileID: 1485023567}
   - component: {fileID: 1485023569}
+  - component: {fileID: 1485023570}
   m_Layer: 5
   m_Name: textExit
   m_TagString: Untagged
@@ -4651,9 +4827,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:85d00f41d265b6b49822ddcdb97a28e5
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 1759487041536
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -4684,6 +4860,21 @@ MonoBehaviour:
       type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 
+--- !u!114 &1485023570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485023565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 100
+  sizeRussian: 100
+  excludeFromFontChange: 0
 --- !u!1 &1493281294
 GameObject:
   m_ObjectHideFlags: 0
@@ -5045,6 +5236,7 @@ GameObject:
   - component: {fileID: 1594297638}
   - component: {fileID: 1594297637}
   - component: {fileID: 1594297639}
+  - component: {fileID: 1594297640}
   m_Layer: 5
   m_Name: textDeleteSave
   m_TagString: Untagged
@@ -5091,10 +5283,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Delete Save
+  m_text: "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0435"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
-  m_sharedMaterial: {fileID: 6488789454558138175, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
+  m_sharedMaterial: {fileID: 7323923695346362313, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5118,8 +5310,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5215,6 +5407,21 @@ MonoBehaviour:
       type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 
+--- !u!114 &1594297640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594297635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 80
+  sizeRussian: 50
+  excludeFromFontChange: 0
 --- !u!1 &1630157305
 GameObject:
   m_ObjectHideFlags: 0
@@ -5227,6 +5434,7 @@ GameObject:
   - component: {fileID: 1630157308}
   - component: {fileID: 1630157307}
   - component: {fileID: 1630157309}
+  - component: {fileID: 1630157310}
   m_Layer: 5
   m_Name: textStart
   m_TagString: Untagged
@@ -5273,10 +5481,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041D\u0410\u0427\u0410\u0422\u042C"
+  m_text: START
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
-  m_sharedMaterial: {fileID: 7323923695346362313, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
+  m_sharedMaterial: {fileID: 6488789454558138175, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5300,8 +5508,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5397,6 +5605,21 @@ MonoBehaviour:
       type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 
+--- !u!114 &1630157310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630157305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 100
+  sizeRussian: 100
+  excludeFromFontChange: 0
 --- !u!1 &1640905426
 GameObject:
   m_ObjectHideFlags: 0
@@ -5408,6 +5631,7 @@ GameObject:
   - component: {fileID: 1640905427}
   - component: {fileID: 1640905429}
   - component: {fileID: 1640905428}
+  - component: {fileID: 1640905430}
   m_Layer: 5
   m_Name: Text (TMP) (2)
   m_TagString: Untagged
@@ -5531,6 +5755,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1640905426}
   m_CullTransparentMesh: 1
+--- !u!114 &1640905430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640905426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 60
+  sizeRussian: 40
+  excludeFromFontChange: 1
 --- !u!1 &1777525217
 GameObject:
   m_ObjectHideFlags: 0
@@ -6204,6 +6443,7 @@ GameObject:
   - component: {fileID: 1893851043}
   - component: {fileID: 1893851042}
   - component: {fileID: 1893851044}
+  - component: {fileID: 1893851045}
   m_Layer: 5
   m_Name: textSetting
   m_TagString: Untagged
@@ -6250,10 +6490,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041D\u0410\u0421\u0422\u0420\u041E\u0419\u041A\u0418"
+  m_text: SETTING
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
-  m_sharedMaterial: {fileID: 7323923695346362313, guid: b0b154eeacf5a604ebc8db5b657afa8b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
+  m_sharedMaterial: {fileID: 6488789454558138175, guid: 0c4d5368b8176c5428bb4aa85cec8996, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6277,8 +6517,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6374,6 +6614,21 @@ MonoBehaviour:
       type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
       data:
         m_Value: 
+--- !u!114 &1893851045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893851040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be107646cf924647a1e910fdd25f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeEnglish: 100
+  sizeRussian: 80
+  excludeFromFontChange: 0
 --- !u!1 &1896160956
 GameObject:
   m_ObjectHideFlags: 0

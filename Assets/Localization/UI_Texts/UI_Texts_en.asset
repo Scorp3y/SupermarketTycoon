@@ -62,6 +62,37 @@ MonoBehaviour:
     m_Localized: Gameplay
     m_Metadata:
       m_Items: []
+  - m_Id: 1394528528998400
+    m_Localized: 'Fact 1: The first supermarket that changed the future of shopping
+      opened in 1930 in St. Louis, Missouri.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394568811094016
+    m_Localized: 'Fact 2: The first version of the game was created in 5 days by
+      one person.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394570635616256
+    m_Localized: "Fact 3: Walmart is the world\u2019s largest supermarket chain by
+      revenue."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394572359475200
+    m_Localized: 'Fact 4: A tractor in the game helped develop the supermarket.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394574314020864
+    m_Localized: 'Fact 5: In Australia, supermarkets once agreed to raise prices.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394576151126016
+    m_Localized: 'Fact 6: The game idea was inspired by Retail Tycoon in Roblox.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1394577816264704
+    m_Localized: Loading
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
