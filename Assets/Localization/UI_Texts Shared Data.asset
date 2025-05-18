@@ -87,6 +87,92 @@ MonoBehaviour:
     m_Key: loading_base
     m_Metadata:
       m_Items: []
+  - m_Id: 1424683301445632
+    m_Key: game_setting_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1424741841346560
+    m_Key: game_setting_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1427826336702464
+    m_Key: game_savegame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1427827989258240
+    m_Key: game_backmenu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1440582494429184
+    m_Key: game_warehouse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1440591491211264
+    m_Key: bread
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1440592397180928
+    m_Key: flakes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1440594142011392
+    m_Key: sugar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1440594922151936
+    m_Key: cereals
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1440595735846912
+    m_Key: water
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1440596633427968
+    m_Key: juice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1440597925273600
+    m_Key: dairy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1440599602995200
+    m_Key: meat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1444188106891264
+    m_Key: game_store
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1449725431226368
+    m_Key: game_build
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1449753499508736
+    m_Key: bakery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1449758683668480
+    m_Key: sugar_products
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1449761800036352
+    m_Key: drinks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1449762664062976
+    m_Key: dairy_products
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1449764496973824
+    m_Key: meat_products
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1452559111397376
+    m_Key: 'cereals
+
+'
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

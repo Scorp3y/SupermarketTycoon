@@ -11,7 +11,7 @@ public class LanguageSelector : MonoBehaviour
 
     [Header("Font Sizes")]
     public float englishFontSize = 80f;
-    public float russianFontSize = 50f;
+    public float russianFontSize = 80f;
     private static LanguageSelector instance;
 
 
