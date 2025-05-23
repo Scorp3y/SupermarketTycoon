@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Man5_Customer
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: da0f5a09ce835d34898a0f2ec935a632, type: 3}
+      propertyPath: m_TagString
+      value: Customer
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -59,9 +63,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: da0f5a09ce835d34898a0f2ec935a632, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8229773483411556471}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: da0f5a09ce835d34898a0f2ec935a632, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7368008728409736821}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: da0f5a09ce835d34898a0f2ec935a632, type: 3}
       insertIndex: -1
       addedObject: {fileID: -8789200451316141626}
@@ -95,20 +96,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7368008728409736821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6760340952312498386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 816af19bd87241e4388e5de27699f2ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints: []
-  speed: 1
 --- !u!114 &-8789200451316141626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,8 +109,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredProducts: []
+  doorPoint: {fileID: 0}
   cashRegisterPoint: {fileID: 0}
   exitPoint: {fileID: 0}
+  mainDoor: {fileID: 0}
   waitTimeAtShelf: 2
   waitTimeAtCash: 3
 --- !u!195 &-5318680512767432953
