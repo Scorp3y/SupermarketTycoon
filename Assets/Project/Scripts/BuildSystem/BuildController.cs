@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using MyShopGame.Core;
-using MyShopGame.Territory;
+using RetailEmpireTycoon.Core;
+using RetailEmpireTycoon.Territory;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.BuildSystem
+namespace RetailEmpireTycoon.BuildSystem
 {
     [DisallowMultipleComponent]
+    [MovedFrom(false, "MyShopGame.BuildSystem", null, "BuildController")]
     public sealed class BuildController : MonoBehaviour
     {
         [Header("Refs")]

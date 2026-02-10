@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
-using MyShopGame.BuildSystem;
-using MyShopGame.Core;
+using RetailEmpireTycoon.BuildSystem;
+using RetailEmpireTycoon.Core;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.UI.Windows
+namespace RetailEmpireTycoon.UI.Windows
 {
+    [MovedFrom(false, "MyShopGame.UI.Windows", null, "BuildInventoryItemRow")]
     public sealed class BuildInventoryItemRow : MonoBehaviour
     {
         [Header("UI")]

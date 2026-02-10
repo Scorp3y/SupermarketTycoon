@@ -1,4 +1,4 @@
-namespace MyShopGame.BuildSystem
+namespace RetailEmpireTycoon.BuildSystem
 {
     public enum BuildMode
     {

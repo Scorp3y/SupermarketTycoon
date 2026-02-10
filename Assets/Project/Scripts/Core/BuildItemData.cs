@@ -1,9 +1,11 @@
 using UnityEngine;
-using MyShopGame.Core;
+using RetailEmpireTycoon.Core;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.Core
+namespace RetailEmpireTycoon.Core
 {
-    [CreateAssetMenu(menuName = "My Shop Game/Build Item", fileName = "BuildItem_")]
+    [CreateAssetMenu(menuName = "Retail Empire Tycoon/Build Item", fileName = "BuildItem_")]
+    [MovedFrom(false, "MyShopGame.Core", null, "BuildItemData")]
     public class BuildItemData : ScriptableObject
     {
         [Header("Identity")]

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using MyShopGame.Core;
+using RetailEmpireTycoon.Core;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.UI.Shop
+namespace RetailEmpireTycoon.UI.Shop
 {
+    [MovedFrom(false, "MyShopGame.UI.Shop", null, "ShopTab_Build")]
     public sealed class ShopTab_Build : MonoBehaviour
     {
         public BuildCategory categoryFilter = BuildCategory.Shelf;

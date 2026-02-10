@@ -1,9 +1,11 @@
 using System.Collections.Generic;
-using MyShopGame.Core;
-using MyShopGame.Territory;
+using RetailEmpireTycoon.Core;
+using RetailEmpireTycoon.Territory;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.BuildSystem
+namespace RetailEmpireTycoon.BuildSystem
 {
+    [MovedFrom(false, "MyShopGame.BuildSystem", null, "Rule_InsidePurchasedArea")]
     public sealed class Rule_InsidePurchasedArea : IPlacementRule
     {
         private readonly ITerritoryQuery _territory;

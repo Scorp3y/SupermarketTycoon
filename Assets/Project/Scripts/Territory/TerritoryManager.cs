@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.Territory
+namespace RetailEmpireTycoon.Territory
 {
     [DisallowMultipleComponent]
+    [MovedFrom(false, "MyShopGame.Territory", null, "TerritoryManager")]
     public sealed class TerritoryManager : MonoBehaviour, ITerritoryQuery
     {
         [System.Serializable]
+        [MovedFrom(false, "MyShopGame.Territory", null, "PurchasedRect")]
         public class PurchasedRect
         {
             public Vector3Int min;

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using MyShopGame.Core;
+using RetailEmpireTycoon.Core;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.BuildSystem
+namespace RetailEmpireTycoon.BuildSystem
 {
+    [MovedFrom(false, "MyShopGame.BuildSystem", null, "Rule_Accessibility")]
     public sealed class Rule_Accessibility : IPlacementRule
     {
         private readonly IGridOccupancy _occupancy;

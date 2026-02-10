@@ -1,19 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
-using MyShopGame.BuildSystem;
-using MyShopGame.Economy;
-using MyShopGame.Core;
+using TMPro;
+using RetailEmpireTycoon.BuildSystem;
+using RetailEmpireTycoon.Economy;
+using RetailEmpireTycoon.Core;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.UI.Shop
+namespace RetailEmpireTycoon.UI.Shop
 {
+    [MovedFrom(false, "MyShopGame.UI.Shop", null, "ShopItemCard")]
     public sealed class ShopItemCard : MonoBehaviour
     {
         [Header("UI")]
         public Image icon;
-        public Text nameText;
-        public Text descText;
-        public Text priceText;
-        public Text sizeText;
+        public TMP_Text nameText;
+        public TMP_Text descText;
+        public TMP_Text priceText;
+        public TMP_Text sizeText;
         public Button buyButton;
 
         [Header("Refs")]
@@ -35,9 +38,14 @@ namespace MyShopGame.UI.Shop
         {
             if (_item == null) return;
 
-            if (nameText != null) nameText.text = _item.displayName;
-            if (descText != null) descText.text = _item.description;
-            if (priceText != null) priceText.text = _item.price.ToString();
+            if (nameText != null)
+                nameText.text = _item.displayName;
+
+            if (descText != null)
+                descText.text = _item.description;
+
+            if (priceText != null)
+                priceText.text = _item.price.ToString();
 
             if (sizeText != null)
             {
@@ -49,6 +57,7 @@ namespace MyShopGame.UI.Shop
         private void ApplyIcon()
         {
             if (icon == null) return;
+
             icon.sprite = _item != null ? _item.icon : null;
             icon.enabled = icon.sprite != null;
         }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MyShopGame.Territory
+namespace RetailEmpireTycoon.Territory
 {
     public interface ITerritoryQuery
     {

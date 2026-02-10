@@ -1,9 +1,11 @@
 using UnityEngine;
-using MyShopGame.Core;
+using RetailEmpireTycoon.Core;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.Products
+namespace RetailEmpireTycoon.Products
 {
     [DisallowMultipleComponent]
+    [MovedFrom(false, "MyShopGame.Products", null, "ShelfComponent")]
     public sealed class ShelfComponent : MonoBehaviour
     {
         [Header("Data")]

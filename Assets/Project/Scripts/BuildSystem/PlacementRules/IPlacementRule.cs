@@ -1,6 +1,6 @@
-using MyShopGame.Core;
+using RetailEmpireTycoon.Core;
 
-namespace MyShopGame.BuildSystem
+namespace RetailEmpireTycoon.BuildSystem
 {
     public interface IPlacementRule
     {

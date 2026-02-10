@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.Core
+namespace RetailEmpireTycoon.Core
 {
-    [CreateAssetMenu(menuName = "My Shop Game/Shelf Data", fileName = "ShelfData_")]
+    [CreateAssetMenu(menuName = "Retail Empire Tycoon/Shelf Data", fileName = "ShelfData_")]
+    [MovedFrom(false, "MyShopGame.Core", null, "ShelfData")]
     public class ShelfData : ScriptableObject
     {
         [Header("Identity")]
@@ -28,6 +30,7 @@ namespace MyShopGame.Core
         public float baseAttractiveness;
 
         [Serializable]
+        [MovedFrom(false, "MyShopGame.Core", null, "ShelfTierData")]
         public class ShelfTierData
         {
             public int tierIndex = 1;

@@ -1,6 +1,6 @@
 using System;
 
-namespace MyShopGame.Core
+namespace RetailEmpireTycoon.Core
 {
     public enum BuildCategory
     {

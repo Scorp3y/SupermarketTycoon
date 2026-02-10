@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using MyShopGame.BuildSystem;
+using RetailEmpireTycoon.BuildSystem;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.UI.Windows
+namespace RetailEmpireTycoon.UI.Windows
 {
+    [MovedFrom(false, "MyShopGame.UI.Windows", null, "BuildInventoryWindow")]
     public sealed class BuildInventoryWindow : MonoBehaviour
     {
         [Header("Refs")]

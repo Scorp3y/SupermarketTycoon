@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.Economy
+namespace RetailEmpireTycoon.Economy
 {
     [DisallowMultipleComponent]
+    [MovedFrom(false, "MyShopGame.Economy", null, "MoneyController")]
     public sealed class MoneyController : MonoBehaviour
     {
         [SerializeField]

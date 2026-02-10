@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.Core
+namespace RetailEmpireTycoon.Core
 {
-    [CreateAssetMenu(menuName = "My Shop Game/Product", fileName = "Product_")]
+    [CreateAssetMenu(menuName = "Retail Empire Tycoon/Product", fileName = "Product_")]
+    [MovedFrom(false, "MyShopGame.Core", null, "ProductData")]
     public class ProductData : ScriptableObject
     {
         public string productId;

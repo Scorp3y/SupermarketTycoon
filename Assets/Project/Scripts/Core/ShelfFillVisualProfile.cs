@@ -1,14 +1,17 @@
 using System;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.Core
+namespace RetailEmpireTycoon.Core
 {
-    [CreateAssetMenu(menuName = "My Shop Game/Shelf Fill Visual Profile", fileName = "ShelfFillProfile_")]
+    [CreateAssetMenu(menuName = "Retail Empire Tycoon/Shelf Fill Visual Profile", fileName = "ShelfFillProfile_")]
+    [MovedFrom(false, "MyShopGame.Core", null, "ShelfFillVisualProfile")]
     public class ShelfFillVisualProfile : ScriptableObject
     {
         public ShelfFillStage[] stages = Array.Empty<ShelfFillStage>();
 
         [Serializable]
+        [MovedFrom(false, "MyShopGame.Core", null, "ShelfFillStage")]
         public class ShelfFillStage
         {
             public string stageName = "Empty";

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.BuildSystem
+namespace RetailEmpireTycoon.BuildSystem
 {
     public interface IGridOccupancy
     {
@@ -12,6 +13,7 @@ namespace MyShopGame.BuildSystem
     }
 
     [DisallowMultipleComponent]
+    [MovedFrom(false, "MyShopGame.BuildSystem", null, "GridSystem")]
     public sealed class GridSystem : MonoBehaviour, IGridOccupancy
     {
         [Header("Grid")]

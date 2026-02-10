@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.UI.HUD
+namespace RetailEmpireTycoon.UI.HUD
 {
+    [MovedFrom(false, "MyShopGame.UI.HUD", null, "HUDController")]
     public sealed class HUDController : MonoBehaviour
     {
         public GameObject shopWindow;

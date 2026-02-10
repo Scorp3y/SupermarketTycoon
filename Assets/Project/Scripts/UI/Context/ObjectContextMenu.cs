@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MyShopGame.UI.Context
+namespace RetailEmpireTycoon.UI.Context
 {
+    [MovedFrom(false, "MyShopGame.UI.Context", null, "ObjectContextMenu")]
     public sealed class ObjectContextMenu : MonoBehaviour
     {
         public void Open()
