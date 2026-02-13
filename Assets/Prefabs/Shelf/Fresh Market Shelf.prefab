@@ -175,6 +175,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8576760755287736251}
+  - component: {fileID: -1381276013332182174}
+  - component: {fileID: -3072631358973595698}
   m_Layer: 0
   m_Name: Fresh Market Shelf
   m_TagString: Untagged
@@ -199,3 +201,36 @@ Transform:
   - {fileID: 833592925938849176}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &-1381276013332182174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6320843135881516882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce00173b59dc8804b87e79d751adf508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shelfData: {fileID: 11400000, guid: 9bebe8264ac3390468c0935ccbcbd00e, type: 2}
+  tierIndex: 1
+  fill01: 0
+--- !u!114 &-3072631358973595698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6320843135881516882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba3e39ecb231bd42b5ab8a26ee58a4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentProduct:
+    productName: 
+    price: 0
+    quantity: 0
+  currentAmount: 0
+  maxAmount: 40

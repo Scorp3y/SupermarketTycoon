@@ -10,22 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0168c82b10c17de40bd83fe8fd382685, type: 3}
-  m_Name: freshData
+  m_Name: Fresh_shelf_ShelfData
   m_EditorClassIdentifier: 
-  shelfId: 1
+  shelfId: fresh_shelf
   shelfType: 0
   acceptedCategory: 3
   baseSlots: 4
   baseMaxStockPerSlot: 10
   requiresRestock: 0
-  tiers:
-  - tierIndex: 0
-    tierName: 
-    slots: 0
-    upgradePrice: 0
-    tierVisualOverride: {fileID: 0}
-    tierMaterialOverride: {fileID: 0}
-    salesMultiplier: 0
+  tiers: []
   fillVisualProfile: {fileID: 0}
   visibilityBonus: 0
   impulseBonus: 0
