@@ -10803,6 +10803,30 @@ PrefabInstance:
       propertyPath: cardPrefab
       value: 
       objectReference: {fileID: 2033791376731963255, guid: fa8a697dee2b49f4d8bc4efa19ef8193, type: 3}
+    - target: {fileID: 671701789489760724, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 796588168602544742, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_Spacing
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 796588168602544742, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 796588168602544742, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 796588168602544742, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_ChildControlHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 796588168602544742, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_ChildForceExpandHeight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1531081704601308860, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -10883,6 +10907,18 @@ PrefabInstance:
       propertyPath: catalog.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: e434bf5829eb9e24f8c3b1795ee75090, type: 2}
+    - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: cameraBehavioursToDisable.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: cameraBehavioursToDisable.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391631482179412868, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5702205087088964014, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -11005,7 +11041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9193625499578813592, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_text
-      value: '1.0.9.1 version
+      value: '1.0.9.1.1 version
 
 
 '

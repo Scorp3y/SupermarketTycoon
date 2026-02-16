@@ -15,7 +15,7 @@ MonoBehaviour:
   id: shelf_fresh_01
   displayName: Fresh Market Shelf
   description: for fruits, vegetables and bread
-  icon: {fileID: 21300000, guid: 081d43e432461e54b875726525aa8f33, type: 3}
+  icon: {fileID: 21300000, guid: a191e51aef6822e4696645cee74c467a, type: 3}
   price: 100
   unlockedByDefault: 1
   unlockCondition: {fileID: 0}
