@@ -16,9 +16,15 @@ namespace RetailEmpireTycoon.BuildSystem
         public BuildInventory inventory;
         public TerritoryManager territory;
         public BuildPreview preview;
+        public event System.Action<BuildItemData> OnPlacedSuccessfully;
 
         [Header("State")]
         public BuildMode mode = BuildMode.Normal;
+
+        [Header("Inventory")]
+        [Tooltip("If true, placement will consume 1 item from BuildInventory after a successful placement.\n" +
+                 "Per current design, this should be OFF until you hook consumption to a confirmed successful placement flow.")]
+        [SerializeField] private bool consumeFromInventoryOnPlace = false;
 
         private BuildItemData _selected;
         private bool _rotated;
@@ -115,7 +121,6 @@ namespace RetailEmpireTycoon.BuildSystem
         {
             if (_selected == null) return;
             if (grid == null) return;
-            if (inventory == null) return;
             if (_validator == null) return;
 
             if (!TryGetMouseCell(out var cell, out _))
@@ -125,10 +130,9 @@ namespace RetailEmpireTycoon.BuildSystem
             var res = _validator.CanPlace(req);
             if (!res.ok) return;
 
-            if (!inventory.TryConsume(_selected, 1))
-                return;
-
             SpawnPlaced(req);
+            OnPlacedSuccessfully?.Invoke(req.item);
+
         }
 
         private void SpawnPlaced(PlacementRequest req)

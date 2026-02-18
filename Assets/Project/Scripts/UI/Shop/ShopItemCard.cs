@@ -22,9 +22,14 @@ namespace RetailEmpireTycoon.UI.Shop
         [Header("Refs")]
         public MoneyController money;
         public BuildInventory inventory;
-
         private BuildItemData _item;
 
+        public void Bind(BuildItemData item, MoneyController moneyController, BuildInventory buildInventory)
+        {
+            money = moneyController;
+            inventory = buildInventory;
+            Bind(item);
+        }
         public void Bind(BuildItemData item)
         {
             _item = item;
@@ -68,6 +73,7 @@ namespace RetailEmpireTycoon.UI.Shop
 
             buyButton.onClick.RemoveAllListeners();
             buyButton.onClick.AddListener(OnBuyClicked);
+
             buyButton.interactable = _item != null && money != null && inventory != null;
         }
 

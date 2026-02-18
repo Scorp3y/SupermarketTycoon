@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RetailEmpireTycoon.Core;
+using RetailEmpireTycoon.BuildSystem;
+using RetailEmpireTycoon.Economy;
 using UnityEngine.Scripting.APIUpdating;
 
 namespace RetailEmpireTycoon.UI.Shop
@@ -10,9 +12,13 @@ namespace RetailEmpireTycoon.UI.Shop
     {
         public BuildCategory categoryFilter = BuildCategory.Shelf;
 
+        [Header("UI")]
         public Transform listRoot;
         public ShopItemCard cardPrefab;
 
+        [Header("Scene Refs")]
+        public MoneyController money;
+        public BuildInventory inventory;
         private readonly List<ShopItemCard> _cards = new List<ShopItemCard>();
 
         public void Bind(List<BuildItemData> items)
@@ -31,7 +37,9 @@ namespace RetailEmpireTycoon.UI.Shop
                     continue;
 
                 var card = Instantiate(cardPrefab, listRoot);
-                card.Bind(it);
+
+                card.Bind(it, money, inventory);
+
                 _cards.Add(card);
             }
         }

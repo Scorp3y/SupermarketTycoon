@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using RetailEmpireTycoon.BuildSystem;
 using RetailEmpireTycoon.Core;
 using UnityEngine.Scripting.APIUpdating;
@@ -11,17 +13,19 @@ namespace RetailEmpireTycoon.UI.Windows
     {
         [Header("UI")]
         public Image icon;
-        public Text nameText;
-        public Text countText;
+        public TMP_Text nameText;
+        public TMP_Text countText;
         public Button placeButton;
 
         private BuildItemData _item;
         private BuildController _controller;
+        private Action _onPlace;
 
-        public void Bind(BuildItemData item, int count, BuildController controller)
+        public void Bind(BuildItemData item, int count, BuildController controller, Action onPlace)
         {
             _item = item;
             _controller = controller;
+            _onPlace = onPlace;
 
             ApplyTexts(count);
             ApplyIcon();
@@ -40,7 +44,7 @@ namespace RetailEmpireTycoon.UI.Windows
             icon.sprite = _item != null ? _item.icon : null;
             icon.enabled = icon.sprite != null;
         }
-        
+
         private void HookButton()
         {
             if (placeButton == null) return;
@@ -53,6 +57,8 @@ namespace RetailEmpireTycoon.UI.Windows
         private void OnPlaceClicked()
         {
             if (_item == null || _controller == null) return;
+
+            _onPlace?.Invoke();
             _controller.EnterBuildMode(_item);
         }
     }
