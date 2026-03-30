@@ -58,10 +58,10 @@ namespace RetailEmpireTycoon.BuildSystem
             HandleRotate();
             UpdatePreview();
 
-            if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
                 ExitBuildMode();
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
                 TryPlace();
         }
 
@@ -155,6 +155,13 @@ namespace RetailEmpireTycoon.BuildSystem
             placed.occupiedCells = cells;
 
             grid.Occupy(cells);
+
+            inventory?.TryConsume(req.item, 1);
+
+            if (inventory == null || inventory.GetCount(req.item) <= 0)
+            {
+                ExitBuildMode();
+            }
         }
 
         private bool TryGetMouseCell(out Vector3Int cell, out Vector3 hitPos)

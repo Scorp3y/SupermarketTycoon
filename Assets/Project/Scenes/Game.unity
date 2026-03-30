@@ -11065,6 +11065,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3174503116234308634, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: buildInventoryWindow
+      value: 
+      objectReference: {fileID: 275552190836251248}
     - target: {fileID: 3321068560855423468, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -11145,6 +11149,10 @@ PrefabInstance:
       propertyPath: mainCategoriesPanel
       value: 
       objectReference: {fileID: 1985000660}
+    - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: buildInventoryWindow
+      value: 
+      objectReference: {fileID: 275552190836251248}
     - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: catalog.Array.data[0]
       value: 
@@ -11319,7 +11327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9193625499578813592, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_text
-      value: '1.0.9.1.2 version
+      value: '1.0.9.1.3 version
 
 
 '
@@ -51214,6 +51222,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 530782921}
     - target: {fileID: 1729301100104002153, guid: 4be7e11f580e9e14f87e6c9708a01663, type: 3}
+      propertyPath: shopWindow
+      value: 
+      objectReference: {fileID: 1579705005}
+    - target: {fileID: 1729301100104002153, guid: 4be7e11f580e9e14f87e6c9708a01663, type: 3}
       propertyPath: buildController
       value: 
       objectReference: {fileID: 3000000003}
@@ -51225,6 +51237,18 @@ PrefabInstance:
       propertyPath: mainCategoriesPanel
       value: 
       objectReference: {fileID: 1181625792}
+    - target: {fileID: 1729301100104002153, guid: 4be7e11f580e9e14f87e6c9708a01663, type: 3}
+      propertyPath: cameraBehavioursToDisable.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729301100104002153, guid: 4be7e11f580e9e14f87e6c9708a01663, type: 3}
+      propertyPath: cameraBehavioursToDisable.Array.data[0]
+      value: 
+      objectReference: {fileID: 963194227}
+    - target: {fileID: 1729301100104002153, guid: 4be7e11f580e9e14f87e6c9708a01663, type: 3}
+      propertyPath: cameraBehavioursToDisable.Array.data[1]
+      value: 
+      objectReference: {fileID: 963194227}
     - target: {fileID: 3475037423024863317, guid: 4be7e11f580e9e14f87e6c9708a01663, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -51271,7 +51295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5498916154611944332, guid: 4be7e11f580e9e14f87e6c9708a01663, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 800
+      value: 931.9893
       objectReference: {fileID: 0}
     - target: {fileID: 5498916154611944332, guid: 4be7e11f580e9e14f87e6c9708a01663, type: 3}
       propertyPath: m_LocalPosition.x

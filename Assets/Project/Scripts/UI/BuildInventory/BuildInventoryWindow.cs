@@ -12,11 +12,12 @@ namespace RetailEmpireTycoon.UI.Windows
         [Header("Refs")]
         public BuildInventory inventory;
         public BuildController buildController;
+        public GameObject shopWindow;
 
-        [Header("UI - Panels (как в магазине)")]
+        [Header("UI")]
         public GameObject mainCategoriesPanel;
-        public GameObject categoryViewPanel;    
-        public GameObject emptyLabel;          
+        public GameObject categoryViewPanel;
+        public GameObject emptyLabel;
 
         [Header("UI - List")]
         public Transform listRoot;
@@ -25,42 +26,60 @@ namespace RetailEmpireTycoon.UI.Windows
         [Header("Filter")]
         public BuildCategory currentFilter = BuildCategory.Shelf;
 
+        [Header("Camera Lock (optional)")]
+        [SerializeField] private Behaviour[] cameraBehavioursToDisable;
+
         private readonly List<BuildInventoryItemRow> _rows = new();
+        private readonly List<(Behaviour b, bool wasEnabled)> _cameraState = new();
+
+        private void Awake()
+        {
+            if (cameraBehavioursToDisable == null || cameraBehavioursToDisable.Length == 0)
+            {
+                var cam = Camera.main;
+                if (cam != null)
+                {
+                    var mainCamController = cam.GetComponent<global::MainCamera>();
+                    if (mainCamController != null)
+                        cameraBehavioursToDisable = new Behaviour[] { mainCamController };
+                }
+            }
+        }
 
         private void OnEnable()
         {
+            if (shopWindow != null)
+                shopWindow.SetActive(false);
+
             if (inventory != null)
                 inventory.Changed += Refresh;
 
-            ShowCategories();
+            if (mainCategoriesPanel != null) mainCategoriesPanel.SetActive(true);
+            if (categoryViewPanel != null) categoryViewPanel.SetActive(true);
+
+            LockCamera(true);
+            Refresh();
         }
 
         private void OnDisable()
         {
             if (inventory != null)
                 inventory.Changed -= Refresh;
-        }
 
-        public void ShowCategories()
-        {
-            if (mainCategoriesPanel != null) mainCategoriesPanel.SetActive(true);
-            if (categoryViewPanel != null) categoryViewPanel.SetActive(false);
-            if (emptyLabel != null) emptyLabel.SetActive(false);
+            LockCamera(false);
         }
 
         public void ShowShelves()
         {
             currentFilter = BuildCategory.Shelf;
-            OpenCategory();
-        }
-
-        private void OpenCategory()
-        {
-            if (mainCategoriesPanel != null) mainCategoriesPanel.SetActive(false);
-            if (categoryViewPanel != null) categoryViewPanel.SetActive(true);
-
             Refresh();
         }
+
+       /* public void ShowProducts()
+        {
+            currentFilter = BuildCategory.Product;
+            Refresh();
+        }*/
 
         public void Refresh()
         {
@@ -102,9 +121,44 @@ namespace RetailEmpireTycoon.UI.Windows
         private void Clear()
         {
             foreach (var r in _rows)
-                if (r != null) Destroy(r.gameObject);
+            {
+                if (r != null)
+                    Destroy(r.gameObject);
+            }
 
             _rows.Clear();
+        }
+
+        private void LockCamera(bool locked)
+        {
+            if (locked)
+            {
+                _cameraState.Clear();
+                if (cameraBehavioursToDisable == null) return;
+
+                for (int i = 0; i < cameraBehavioursToDisable.Length; i++)
+                {
+                    var b = cameraBehavioursToDisable[i];
+                    if (b == null) continue;
+
+                    if (b is Camera || b is AudioListener)
+                        continue;
+
+                    _cameraState.Add((b, b.enabled));
+                    b.enabled = false;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < _cameraState.Count; i++)
+                {
+                    var (b, wasEnabled) = _cameraState[i];
+                    if (b == null) continue;
+                    b.enabled = wasEnabled;
+                }
+
+                _cameraState.Clear();
+            }
         }
     }
 }

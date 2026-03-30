@@ -28,6 +28,7 @@ namespace RetailEmpireTycoon.UI.Shop
         [Header("UI - List")]
         public Transform listRoot;
         public ShopItemCard cardPrefab;
+        public GameObject buildInventoryWindow;
 
         [Header("State")]
         [SerializeField] private BuildCategory _shopFilter = BuildCategory.Shelf;
@@ -59,7 +60,6 @@ namespace RetailEmpireTycoon.UI.Shop
         {
             LockCamera(true);
 
-            // New flow (preferred)
             if (mainCategoriesPanel != null || categoryViewPanel != null)
             {
                 if (backButton != null)
@@ -71,9 +71,11 @@ namespace RetailEmpireTycoon.UI.Shop
             }
             else
             {
-                // Legacy fallback
                 buildTab?.Bind(catalog);
             }
+
+            if (buildInventoryWindow != null)
+                buildInventoryWindow.SetActive(false);
         }
 
         private void OnDisable()
@@ -161,7 +163,7 @@ namespace RetailEmpireTycoon.UI.Shop
                 if (it.category != _shopFilter) continue;
 
                 var card = Instantiate(cardPrefab, listRoot);
-                // No scene refs stored in prefab: inject here.
+
                 card.Bind(it, money, inventory);
                 shown++;
             }
