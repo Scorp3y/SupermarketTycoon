@@ -17,6 +17,7 @@ namespace RetailEmpireTycoon.BuildSystem
         public TerritoryManager territory;
         public BuildPreview preview;
         public event System.Action<BuildItemData> OnPlacedSuccessfully;
+        public BuildGridOverlay gridOverlay;
 
         [Header("State")]
         public BuildMode mode = BuildMode.Normal;
@@ -40,6 +41,7 @@ namespace RetailEmpireTycoon.BuildSystem
             inventory ??= GetComponent<BuildInventory>();
             territory ??= GetComponent<TerritoryManager>();
             preview ??= GetComponentInChildren<BuildPreview>(true);
+            gridOverlay ??= FindObjectOfType<BuildGridOverlay>(true);
 
             var rules = new List<IPlacementRule>
             {
@@ -75,6 +77,7 @@ namespace RetailEmpireTycoon.BuildSystem
             _facing = 0;
 
             preview?.SetItem(item);
+            gridOverlay?.Show();
         }
 
         public void ExitBuildMode()
@@ -82,6 +85,7 @@ namespace RetailEmpireTycoon.BuildSystem
             mode = BuildMode.Normal;
             _selected = null;
             preview?.Clear();
+            gridOverlay?.Hide();
         }
 
         private void HandleRotate()

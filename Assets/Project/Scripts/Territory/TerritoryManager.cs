@@ -20,17 +20,24 @@ namespace RetailEmpireTycoon.Territory
         [SerializeField]
         private List<PurchasedRect> purchased = new List<PurchasedRect>();
 
+        public IReadOnlyList<PurchasedRect> PurchasedRects => purchased;
+
+        public void ClearPurchased()
+        {
+            purchased.Clear();
+        }
+
         public bool IsCellPurchased(Vector3Int cell)
         {
             if (purchased == null || purchased.Count == 0)
-                return true;
+                return false;
 
             foreach (var r in purchased)
             {
                 if (r == null)
                     continue;
 
-                var inside =
+                bool inside =
                     cell.x >= r.min.x && cell.x <= r.max.x &&
                     cell.z >= r.min.z && cell.z <= r.max.z;
 

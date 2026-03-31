@@ -10904,7 +10904,7 @@ PrefabInstance:
     - target: {fileID: 493206520838137926, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: inventory
       value: 
-      objectReference: {fileID: 3000000002}
+      objectReference: {fileID: 0}
     - target: {fileID: 493206520838137926, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: cardPrefab
       value: 
@@ -11304,7 +11304,7 @@ PrefabInstance:
     - target: {fileID: 7300147279257602044, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: inventory
       value: 
-      objectReference: {fileID: 3000000002}
+      objectReference: {fileID: 0}
     - target: {fileID: 7712980501828236344, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_Name
       value: MainCategoriesPanel_Shop
@@ -11327,7 +11327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9193625499578813592, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_text
-      value: '1.0.9.1.3 version
+      value: '1.0.9.1.4 version
 
 
 '
@@ -16203,7 +16203,7 @@ Transform:
   m_GameObject: {fileID: 676001814}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21396,12 +21396,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minX: -20
   maxX: 20
-  minZ: -12
-  maxZ: 1
-  minY: 5
-  maxY: 5
-  minZoomDistance: 3
-  maxZoomDistance: 15
+  minZ: -20
+  maxZ: 10
+  minY: 4.5
+  maxY: 12
+  minZoomDistance: 4
+  maxZoomDistance: 20
+  pivot: {x: 0, y: 0, z: -5}
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40103,6 +40104,109 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c80eb4e4380225b4582d792ea8c38209, type: 3}
   m_PrefabInstance: {fileID: 275421090}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1478877836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1478877837}
+  - component: {fileID: 1478877840}
+  - component: {fileID: 1478877839}
+  - component: {fileID: 1478877838}
+  m_Layer: 0
+  m_Name: BuildGridOverlay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1478877837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478877836}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3000000001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1478877838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478877836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27d911c05763894fa21a184aebcfd62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 3000000005}
+  territory: {fileID: 3000000004}
+  overlayMaterialTemplate: {fileID: 2100000, guid: 452437f07bb21864d9098d709f5aa1a6, type: 2}
+  yOffset: 0.03
+  lineWidth: 0.02
+  gridColor: {r: 1, g: 1, b: 1, a: 0.45}
+  fillColor: {r: 1, g: 1, b: 1, a: 0.05}
+--- !u!23 &1478877839
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478877836}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1478877840
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478877836}
+  m_Mesh: {fileID: 0}
 --- !u!1001 &1487626735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50411,6 +50515,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1043734735}
+  - {fileID: 1478877837}
   m_Father: {fileID: 676001815}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3000000002
@@ -50443,6 +50548,7 @@ MonoBehaviour:
   inventory: {fileID: 3000000002}
   territory: {fileID: 3000000004}
   preview: {fileID: 1043734734}
+  gridOverlay: {fileID: 1478877838}
   mode: 0
   consumeFromInventoryOnPlace: 0
 --- !u!114 &3000000004
