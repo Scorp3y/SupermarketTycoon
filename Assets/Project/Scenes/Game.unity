@@ -11327,7 +11327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9193625499578813592, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_text
-      value: '1.0.9.1.4 version
+      value: '1.0.9.1.5 version
 
 
 '
@@ -40153,10 +40153,10 @@ MonoBehaviour:
   grid: {fileID: 3000000005}
   territory: {fileID: 3000000004}
   overlayMaterialTemplate: {fileID: 2100000, guid: 452437f07bb21864d9098d709f5aa1a6, type: 2}
-  yOffset: 0.03
-  lineWidth: 0.02
-  gridColor: {r: 1, g: 1, b: 1, a: 0.45}
-  fillColor: {r: 1, g: 1, b: 1, a: 0.05}
+  yOffset: 0.01
+  lineWidth: 0.012
+  gridColor: {r: 0, g: 0, b: 0, a: 1}
+  fillColor: {r: 0, g: 0, b: 0, a: 0.015686275}
 --- !u!23 &1478877839
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -43274,7 +43274,7 @@ MonoBehaviour:
   root: {fileID: 1455834514}
   prefabs:
   - level: 0
-    prefab: {fileID: 658749275836527406, guid: 3cb3da26afba70b45a2189d2efb996fa, type: 3}
+    prefab: {fileID: 658749275836527406, guid: f6c1f1cf9c9f9f245b529b1aa35848e3, type: 3}
   - level: 1
     prefab: {fileID: 6216503541869716875, guid: 9e62f7096020592478f21d8ce3866635, type: 3}
   - level: 2
