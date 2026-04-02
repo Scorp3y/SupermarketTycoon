@@ -10889,13 +10889,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopBackButton
       objectReference: {fileID: 0}
+    - target: {fileID: 361642638756761852, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 429753412757781363, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 429753412757781363, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 493206520838137926, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: money
@@ -10945,6 +10949,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 790301390504081012, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -388
+      objectReference: {fileID: 0}
+    - target: {fileID: 790301390504081012, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 419
+      objectReference: {fileID: 0}
     - target: {fileID: 796588168602544742, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_Spacing
       value: 20
@@ -10977,6 +10989,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1622560532455758075, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_Name
+      value: TabsBuild_Shelf
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162946813766936469, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2162946813766936469, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
@@ -10987,11 +11007,19 @@ PrefabInstance:
       objectReference: {fileID: 1579705007}
     - target: {fileID: 2162946813766936469, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenCategory_Shelves
+      value: OpenBuildCategories
       objectReference: {fileID: 0}
     - target: {fileID: 2162946813766936469, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: RetailEmpireTycoon.UI.Shop.ShopWindow, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162946813766936469, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2162946813766936469, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2251417655012365968, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.x
@@ -11059,10 +11087,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2520021332350551381, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2520021332350551381, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108404697870994464, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3174503116234308634, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
@@ -11071,23 +11103,63 @@ PrefabInstance:
       objectReference: {fileID: 275552190836251248}
     - target: {fileID: 3321068560855423468, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3321068560855423468, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3321068560855423468, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 3321068560855423468, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 3363629023706036830, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3557406816756584738, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_Name
+      value: TabsBuild_Structures
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674513370645992383, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674513370645992383, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674513370645992383, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1579705007}
+    - target: {fileID: 3674513370645992383, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674513370645992383, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenCategory_Structures
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674513370645992383, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RetailEmpireTycoon.UI.Shop.ShopWindow, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674513370645992383, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3837175299698573723, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911020413850223228, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000038146973
       objectReference: {fileID: 0}
     - target: {fileID: 4045567056304793407, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.x
@@ -11099,6 +11171,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4045567056304793407, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284112054077511440, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4578461273275076406, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
@@ -11138,17 +11214,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: mainTabsPanel
+      value: 
+      objectReference: {fileID: 1813863137}
+    - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: categoryViewPanel
       value: 
       objectReference: {fileID: 1210592744}
     - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: catalog.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: mainCategoriesPanel
       value: 
       objectReference: {fileID: 1985000660}
+    - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: tabsCategoriesPanel
+      value: 
+      objectReference: {fileID: 1825148470}
     - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: buildInventoryWindow
       value: 
@@ -11161,6 +11245,14 @@ PrefabInstance:
       propertyPath: catalog.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: e434bf5829eb9e24f8c3b1795ee75090, type: 2}
+    - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: catalog.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 77770a8d631f2094c9787ec04d70c7cc, type: 2}
+    - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: catalog.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: a4119d691bb37654c87504141444ba7d, type: 2}
     - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: cameraBehavioursToDisable.Array.size
       value: 0
@@ -11203,15 +11295,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6236434336319522134, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6236434336319522134, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6558173894950984748, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_Name
       value: ListRoot_ShopWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 6901262662363532916, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_Name
+      value: Tabs_Build
       objectReference: {fileID: 0}
     - target: {fileID: 7119652269120805058, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_Pivot.x
@@ -11293,6 +11389,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7157219344094580340, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157219344094580340, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157219344094580340, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1579705007}
+    - target: {fileID: 7157219344094580340, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157219344094580340, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenCategory_Shelves
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157219344094580340, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RetailEmpireTycoon.UI.Shop.ShopWindow, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7157219344094580340, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7216642265497736604, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_Name
       value: EmptyLabelShop
@@ -11305,21 +11429,73 @@ PrefabInstance:
       propertyPath: inventory
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1579705007}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1579705007}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToMainTabs
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RetailEmpireTycoon.UI.Shop.ShopWindow, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: RetailEmpireTycoon.UI.Shop.ShopWindow, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340758762093208242, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7712980501828236344, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_Name
       value: MainCategoriesPanel_Shop
       objectReference: {fileID: 0}
     - target: {fileID: 7712980501828236344, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7880876937828062584, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7880876937828062584, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 8649793773904453577, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_IsActive
@@ -11327,7 +11503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9193625499578813592, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_text
-      value: '1.0.9.1.5 version
+      value: '1.0.9.1.6 version
 
 
 '
@@ -45135,6 +45311,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d372dbc1acdf2b14fb741024354ef278, type: 3}
   m_PrefabInstance: {fileID: 1607618888}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1813863137 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 361642638756761852, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+  m_PrefabInstance: {fileID: 333990035}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1814018735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45456,6 +45637,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d372dbc1acdf2b14fb741024354ef278, type: 3}
+--- !u!1 &1825148470 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3837175299698573723, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+  m_PrefabInstance: {fileID: 333990035}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1826079771
 PrefabInstance:
   m_ObjectHideFlags: 0

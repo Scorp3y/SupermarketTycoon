@@ -441,14 +441,14 @@ RectTransform:
   m_GameObject: {fileID: 3282879308774657615}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.70477873, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3506031958738073482}
+  m_Father: {fileID: 6796113364514114710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: 139.4096}
+  m_AnchoredPosition: {x: -1, y: 2.0000916}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6053019496191428048
@@ -1405,12 +1405,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 0}
   buildController: {fileID: 0}
+  shopWindow: {fileID: 0}
   mainCategoriesPanel: {fileID: 5283041691822790690}
   categoryViewPanel: {fileID: 7646747813202017307}
   emptyLabel: {fileID: 0}
   listRoot: {fileID: 7499376442650260743}
   rowPrefab: {fileID: 7104853366270444598, guid: 1be4511a523a2f3458e4d3940963ad56, type: 3}
   currentFilter: 0
+  cameraBehavioursToDisable: []
 --- !u!1 &5602422272972542202
 GameObject:
   m_ObjectHideFlags: 0
@@ -2112,7 +2114,6 @@ RectTransform:
   m_Children:
   - {fileID: 1035468964252949615}
   - {fileID: 6796113364514114710}
-  - {fileID: 7317504009635471860}
   m_Father: {fileID: 3022581433858334201}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2152,6 +2153,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1704248070716507507}
+  - {fileID: 7317504009635471860}
   m_Father: {fileID: 3506031958738073482}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

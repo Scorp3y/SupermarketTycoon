@@ -19,9 +19,11 @@ namespace RetailEmpireTycoon.UI.Shop
         public MoneyController money;
         public BuildInventory inventory;
 
-        [Header("UI - Panels (Sections -> List -> Back)")]
-        public GameObject mainCategoriesPanel;
-        public GameObject categoryViewPanel;
+        [Header("UI - Main Flow")]
+        public GameObject mainCategoriesPanel;   
+        public GameObject mainTabsPanel;         
+        public GameObject tabsCategoriesPanel;   
+        public GameObject categoryViewPanel;     
         public Button backButton;
         public GameObject emptyLabel;
 
@@ -60,19 +62,13 @@ namespace RetailEmpireTycoon.UI.Shop
         {
             LockCamera(true);
 
-            if (mainCategoriesPanel != null || categoryViewPanel != null)
+            if (backButton != null)
             {
-                if (backButton != null)
-                {
-                    backButton.onClick.RemoveAllListeners();
-                    backButton.onClick.AddListener(ShowCategories);
-                }
-                ShowCategories();
+                backButton.onClick.RemoveAllListeners();
+                backButton.onClick.AddListener(BackToMainTabs);
             }
-            else
-            {
-                buildTab?.Bind(catalog);
-            }
+
+            ShowMainTabs();
 
             if (buildInventoryWindow != null)
                 buildInventoryWindow.SetActive(false);
@@ -110,6 +106,7 @@ namespace RetailEmpireTycoon.UI.Shop
                     if (b == null) continue;
                     b.enabled = wasEnabled;
                 }
+
                 _cameraState.Clear();
             }
         }
@@ -119,29 +116,72 @@ namespace RetailEmpireTycoon.UI.Shop
             gameObject.SetActive(false);
         }
 
-        // -----------------
-        // New UI flow API
-        // -----------------
+        // =========================
+        // STEP 1: Main tabs flow
+        // =========================
 
-        public void ShowCategories()
+        public void ShowMainTabs()
         {
+            ClearList();
+
             if (mainCategoriesPanel != null) mainCategoriesPanel.SetActive(true);
+            if (mainTabsPanel != null) mainTabsPanel.SetActive(true);
+            if (tabsCategoriesPanel != null) tabsCategoriesPanel.SetActive(false);
             if (categoryViewPanel != null) categoryViewPanel.SetActive(false);
             if (emptyLabel != null) emptyLabel.SetActive(false);
         }
 
-        // Hook these to UI buttons.
-        public void OpenCategory_Shelves() => OpenCategory(BuildCategory.Shelf);
-        public void OpenCategory_Cashier() => OpenCategory(BuildCategory.Cashier);
-        public void OpenCategory_Decoration() => OpenCategory(BuildCategory.Decoration);
-        public void OpenCategory_Utility() => OpenCategory(BuildCategory.Utility);
-        public void OpenCategory_Other() => OpenCategory(BuildCategory.Other);
+        public void OpenBuildCategories()
+        {
+            if (mainCategoriesPanel != null) mainCategoriesPanel.SetActive(true);
+            if (mainTabsPanel != null) mainTabsPanel.SetActive(false);
+            if (tabsCategoriesPanel != null) tabsCategoriesPanel.SetActive(true);
+            if (categoryViewPanel != null) categoryViewPanel.SetActive(false);
+            if (emptyLabel != null) emptyLabel.SetActive(false);
+        }
+
+        public void BackToMainTabs()
+        {
+            ShowMainTabs();
+        }
+
+        public void Back()
+        {
+            if (categoryViewPanel.activeSelf)
+            {
+                if (categoryViewPanel != null) categoryViewPanel.SetActive(false);
+                if (tabsCategoriesPanel != null) tabsCategoriesPanel.SetActive(true);
+            }
+            else
+            {
+                ShowMainTabs();
+            }
+        }
+
+        // =========================
+        // Build categories
+        // =========================
+
+        public void OpenCategory_Shelves()
+        {
+            OpenCategory(BuildCategory.Shelf);
+        }
+
+        public void OpenCategory_Structures()
+        {
+            OpenCategory(BuildCategory.Structures);
+        }
+
 
         public void OpenCategory(BuildCategory category)
         {
             _shopFilter = category;
-            if (mainCategoriesPanel != null) mainCategoriesPanel.SetActive(false);
+
+            if (mainCategoriesPanel != null) mainCategoriesPanel.SetActive(true);
+            if (mainTabsPanel != null) mainTabsPanel.SetActive(false);
+            if (tabsCategoriesPanel != null) tabsCategoriesPanel.SetActive(true);
             if (categoryViewPanel != null) categoryViewPanel.SetActive(true);
+
             Refresh();
         }
 
@@ -156,6 +196,7 @@ namespace RetailEmpireTycoon.UI.Shop
             }
 
             int shown = 0;
+
             for (int i = 0; i < catalog.Count; i++)
             {
                 var it = catalog[i];
@@ -163,7 +204,6 @@ namespace RetailEmpireTycoon.UI.Shop
                 if (it.category != _shopFilter) continue;
 
                 var card = Instantiate(cardPrefab, listRoot);
-
                 card.Bind(it, money, inventory);
                 shown++;
             }
@@ -175,8 +215,10 @@ namespace RetailEmpireTycoon.UI.Shop
         private void ClearList()
         {
             if (listRoot == null) return;
+
             for (int i = listRoot.childCount - 1; i >= 0; i--)
                 Destroy(listRoot.GetChild(i).gameObject);
         }
+
     }
 }

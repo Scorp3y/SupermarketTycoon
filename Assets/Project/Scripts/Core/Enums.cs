@@ -5,10 +5,9 @@ namespace RetailEmpireTycoon.Core
     public enum BuildCategory
     {
         Shelf,
+        Structures,
         Cashier,
-        Decoration,
-        Utility,
-        Other
+        Decoration
     }
 
     public enum BuildSubCategory
