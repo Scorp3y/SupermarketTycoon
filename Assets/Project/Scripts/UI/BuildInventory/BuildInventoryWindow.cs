@@ -69,17 +69,20 @@ namespace RetailEmpireTycoon.UI.Windows
             LockCamera(false);
         }
 
-        public void ShowShelves()
+        private bool IsFurnitureItem(BuildItemData item)
         {
-            currentFilter = BuildCategory.Shelf;
-            Refresh();
+            if (item == null) return false;
+
+            return item.category == BuildCategory.Shelf
+                || item.category == BuildCategory.Structures
+                || item.category == BuildCategory.Decoration;
         }
 
-       /* public void ShowProducts()
-        {
-            currentFilter = BuildCategory.Product;
-            Refresh();
-        }*/
+        /* public void ShowProducts()
+         {
+             currentFilter = BuildCategory.Product;
+             Refresh();
+         }*/
 
         public void Refresh()
         {
@@ -98,7 +101,7 @@ namespace RetailEmpireTycoon.UI.Windows
                 if (e == null || e.item == null || e.count <= 0)
                     continue;
 
-                if (e.item.category != currentFilter)
+                if (!IsFurnitureItem(e.item))
                     continue;
 
                 var row = Instantiate(rowPrefab, listRoot);

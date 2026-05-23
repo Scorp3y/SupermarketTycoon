@@ -23,7 +23,7 @@ MonoBehaviour:
   subCategory: 0
   footprint: {x: 1, y: 1}
   allowRotation: 1
-  ruleFlags: 7
+  ruleFlags: 3
   accessibilitySides: 1
   pivotOffset: {x: 0, y: 0}
   prefab: {fileID: 5844154462797527900, guid: d525604eec82c5e4dbfde65a107535c1, type: 3}
