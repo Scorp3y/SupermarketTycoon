@@ -18,6 +18,7 @@ namespace RetailEmpireTycoon.BuildSystem
         public BuildPreview preview;
         public event System.Action<BuildItemData> OnPlacedSuccessfully;
         public BuildGridOverlay gridOverlay;
+        public FloorPainter floorPainter;
 
         [Header("State")]
         public BuildMode mode = BuildMode.Normal;
@@ -42,6 +43,7 @@ namespace RetailEmpireTycoon.BuildSystem
             territory ??= GetComponent<TerritoryManager>();
             preview ??= GetComponentInChildren<BuildPreview>(true);
             gridOverlay ??= FindObjectOfType<BuildGridOverlay>(true);
+            floorPainter ??= FindObjectOfType<FloorPainter>(true);
 
             var rules = new List<IPlacementRule>
             {
@@ -53,15 +55,30 @@ namespace RetailEmpireTycoon.BuildSystem
             _validator = new PlacementValidator(rules); 
         }
 
+
+        private bool _isPaintingFloor;
+        private Vector3Int _floorStartCell;
+        private List<Vector3Int> _floorPreviewCells = new();
+
         private void Update()
         {
             if (mode != BuildMode.Build) return;
 
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                floorPainter?.ClearPreview();
+                ExitBuildMode();
+                return;
+            }
+
+            if (_selected != null && _selected.placementKind == PlacementKind.Floor)
+            {
+                HandleFloorPaintMode();
+                return;
+            }
+
             HandleRotate();
             UpdatePreview();
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-                ExitBuildMode();
 
             if (Input.GetMouseButtonDown(1))
                 TryPlace();
@@ -76,7 +93,11 @@ namespace RetailEmpireTycoon.BuildSystem
             _rotated = false;
             _facing = 0;
 
-            preview?.SetItem(item);
+            if (item.placementKind == PlacementKind.Floor)
+                preview?.Clear();
+            else
+                preview?.SetItem(item);
+
             gridOverlay?.Show();
         }
 
@@ -119,6 +140,12 @@ namespace RetailEmpireTycoon.BuildSystem
 
             preview?.SetPose(worldPos, rot);
             preview?.SetValid(res.ok);
+
+            if (territory != null && !territory.IsCellPurchased(cell))
+            {
+                preview?.SetValid(false);
+                return;
+            }
         }
 
         private void TryPlace()
@@ -130,13 +157,34 @@ namespace RetailEmpireTycoon.BuildSystem
             if (!TryGetMouseCell(out var cell, out _))
                 return;
 
+            if (_selected.placementKind == PlacementKind.Floor)
+            {
+                if (floorPainter != null)
+                {
+                    var cells = new List<Vector3Int> { cell };
+
+                    if (floorPainter.AreCellsValid(cells) && inventory != null && inventory.GetCount(_selected) >= 1)
+                    {
+                        floorPainter.PaintCells(cells, _selected);
+                        inventory.TryConsume(_selected, 1);
+
+                        if (inventory.GetCount(_selected) <= 0)
+                            ExitBuildMode();
+                    }
+                }
+
+                return;
+            }
+
             var req = new PlacementRequest(_selected, cell, _rotated, _facing);
             var res = _validator.CanPlace(req);
             if (!res.ok) return;
 
+            if (territory != null && !territory.IsCellPurchased(cell))
+                return;
+
             SpawnPlaced(req);
             OnPlacedSuccessfully?.Invoke(req.item);
-
         }
 
         private void SpawnPlaced(PlacementRequest req)
@@ -184,5 +232,72 @@ namespace RetailEmpireTycoon.BuildSystem
             cell = grid.WorldToCell(hit.point);
             return true;
         }
+
+        private void HandleFloorPaintMode()
+        {
+            if (!_isPaintingFloor)
+            {
+                if (TryGetMouseCell(out var hoverCell, out _))
+                {
+                    var cells = new List<Vector3Int> { hoverCell };
+
+                    bool validArea = floorPainter.AreCellsValid(cells);
+                    bool enoughItems = inventory.GetCount(_selected) >= 1;
+
+                    floorPainter.ShowPreview(cells, validArea && enoughItems);
+                }
+            }
+
+            if (_selected == null || floorPainter == null || inventory == null)
+                return;
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (!TryGetMouseCell(out _floorStartCell, out _))
+                    return;
+
+                _isPaintingFloor = true;
+            }
+
+            if (_isPaintingFloor && Input.GetMouseButton(1))
+            {
+                if (!TryGetMouseCell(out var currentCell, out _))
+                    return;
+
+                _floorPreviewCells = floorPainter.GetRectCells(_floorStartCell, currentCell);
+
+                bool validArea = floorPainter.AreCellsValid(_floorPreviewCells);
+                bool enoughItems = inventory.GetCount(_selected) >= _floorPreviewCells.Count;
+
+                floorPainter.ShowPreview(_floorPreviewCells, validArea && enoughItems);
+            }
+
+            if (_isPaintingFloor && Input.GetMouseButtonUp(1))
+            {
+                _isPaintingFloor = false;
+
+                if (_floorPreviewCells == null || _floorPreviewCells.Count == 0)
+                {
+                    floorPainter.ClearPreview();
+                    return;
+                }
+
+                bool validArea = floorPainter.AreCellsValid(_floorPreviewCells);
+                bool enoughItems = inventory.GetCount(_selected) >= _floorPreviewCells.Count;
+
+                if (validArea && enoughItems)
+                {
+                    floorPainter.PaintCells(_floorPreviewCells, _selected);
+                    inventory.TryConsume(_selected, _floorPreviewCells.Count);
+
+                    if (inventory.GetCount(_selected) <= 0)
+                        ExitBuildMode();
+                }
+
+                floorPainter.ClearPreview();
+            }
+        }
     }
+
+
 }

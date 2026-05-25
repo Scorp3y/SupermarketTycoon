@@ -32,6 +32,12 @@ namespace RetailEmpireTycoon.Core
             PlacementRuleFlags.NoOverlap |
             PlacementRuleFlags.RequireAccessibility;
 
+        public PlacementKind placementKind = PlacementKind.Object;
+        [Header("Floor Paint")]
+        public Material floorMaterial;
+
+
+
         [Min(1)]
         public int accessibilitySides = 1;
 

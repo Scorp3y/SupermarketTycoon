@@ -1352,6 +1352,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopItems:
   - {fileID: 0}
+--- !u!1 &71558336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 71558337}
+  - component: {fileID: 71558338}
+  m_Layer: 0
+  m_Name: FloorPainter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &71558337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71558336}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2011028864}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &71558338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71558336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ce2d1463d6cf54a934dc1b4bc66576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 3000000005}
+  territory: {fileID: 3000000004}
+  floorTilePrefab: {fileID: 3067662116102974990, guid: 6e934902aeeab8448b7dc052ae38a8bf, type: 3}
+  floorRoot: {fileID: 1703997780}
+  previewRoot: {fileID: 1286073787}
+  previewValidMaterial: {fileID: 2100000, guid: b737f1f25c90f1842999d06f57aa1608, type: 2}
+  previewInvalidMaterial: {fileID: 2100000, guid: cd8bbf8a301d0664386b1c15cc42650f, type: 2}
 --- !u!1001 &76688249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11223,7 +11274,7 @@ PrefabInstance:
       objectReference: {fileID: 1210592744}
     - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: catalog.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: mainCategoriesPanel
@@ -11253,6 +11304,14 @@ PrefabInstance:
       propertyPath: catalog.Array.data[3]
       value: 
       objectReference: {fileID: 11400000, guid: a4119d691bb37654c87504141444ba7d, type: 2}
+    - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: catalog.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 09ce98f408338bd40aed1bf42b32d760, type: 2}
+    - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
+      propertyPath: catalog.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b56037ec443f934e904dfce4db9548f, type: 2}
     - target: {fileID: 4657157051478089839, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: cameraBehavioursToDisable.Array.size
       value: 0
@@ -11503,7 +11562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9193625499578813592, guid: de97d7c842eab434a9f23cd8592a3fec, type: 3}
       propertyPath: m_text
-      value: '1.0.9.1.6 version
+      value: '1.0.9.2.0 version
 
 
 '
@@ -32203,6 +32262,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d372dbc1acdf2b14fb741024354ef278, type: 3}
   m_PrefabInstance: {fileID: 242640402}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1286073786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1286073787}
+  m_Layer: 0
+  m_Name: FloorPreview
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1286073787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286073786}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2011028864}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1292589171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44107,6 +44197,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d372dbc1acdf2b14fb741024354ef278, type: 3}
+--- !u!1 &1703997779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1703997780}
+  m_Layer: 0
+  m_Name: PlacedFloors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1703997780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703997779}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2011028864}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1001 &1709036873
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48787,6 +48908,9 @@ Transform:
   - {fileID: 1653507773}
   - {fileID: 966154558}
   - {fileID: 33217804}
+  - {fileID: 1286073787}
+  - {fileID: 71558337}
+  - {fileID: 1703997780}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2014249081
@@ -50737,6 +50861,7 @@ MonoBehaviour:
   territory: {fileID: 3000000004}
   preview: {fileID: 1043734734}
   gridOverlay: {fileID: 1478877838}
+  floorPainter: {fileID: 71558338}
   mode: 0
   consumeFromInventoryOnPlace: 0
 --- !u!114 &3000000004

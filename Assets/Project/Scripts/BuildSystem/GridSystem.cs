@@ -29,14 +29,14 @@ namespace RetailEmpireTycoon.BuildSystem
             var x = Mathf.FloorToInt(local.x / cellSize);
             var y = Mathf.FloorToInt(local.y / cellSize);
             var z = Mathf.FloorToInt(local.z / cellSize);
-            return new Vector3Int(x, y, z);
+            return new Vector3Int(x, 0, z);
         }
 
         public Vector3 CellToWorld(Vector3Int cell)
         {
             return origin + new Vector3(
                 (cell.x + 0.5f) * cellSize,
-                (cell.y + 0.0f) * cellSize,
+                0f,
                 (cell.z + 0.5f) * cellSize
             );
         }

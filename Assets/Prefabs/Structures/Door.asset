@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d6abad8a36b0794996f8dedd8a8e734, type: 3}
-  m_Name: Wall_Corner
+  m_Name: Door
   m_EditorClassIdentifier: 
   id: 1
-  displayName: Wall_Corner
+  displayName: Main Door
   description: 
-  icon: {fileID: 21300000, guid: 1f84bab3b6029464f8224e3ff1821343, type: 3}
+  icon: {fileID: 21300000, guid: 984bd3c6ca7904f4b98368c0e9360252, type: 3}
   price: 100
   unlockedByDefault: 1
   unlockCondition: {fileID: 0}
@@ -28,7 +28,7 @@ MonoBehaviour:
   floorMaterial: {fileID: 0}
   accessibilitySides: 1
   pivotOffset: {x: 0, y: 0}
-  prefab: {fileID: 5844154462797527900, guid: d525604eec82c5e4dbfde65a107535c1, type: 3}
+  prefab: {fileID: 4879651958525246032, guid: 4d54278c1a9524447a5b02d722f46fc3, type: 3}
   previewValidMaterial: {fileID: 2100000, guid: b737f1f25c90f1842999d06f57aa1608, type: 2}
   previewInvalidMaterial: {fileID: 2100000, guid: cd8bbf8a301d0664386b1c15cc42650f, type: 2}
   shelfData: {fileID: 0}
