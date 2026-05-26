@@ -21,7 +21,7 @@ MonoBehaviour:
   unlockCondition: {fileID: 0}
   category: 1
   subCategory: 0
-  footprint: {x: 1, y: 1}
+  footprint: {x: 6, y: 1}
   allowRotation: 1
   ruleFlags: 3
   placementKind: 2
