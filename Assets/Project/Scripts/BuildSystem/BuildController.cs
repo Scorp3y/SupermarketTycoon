@@ -203,7 +203,7 @@ namespace RetailEmpireTycoon.BuildSystem
             placed.rotated = req.rotated;
             placed.facing = req.facing;
 
-            var cells = new List<Vector3Int>(grid.GetFootprintCells(req.anchorCell, req.item.footprint, req.rotated));
+            var cells = new List<Vector3Int>(grid.GetFootprintCells(req.anchorCell, req.item.footprint, req.rotated, req.item.pivotOffset));
             placed.occupiedCells = cells;
 
             grid.Occupy(cells);

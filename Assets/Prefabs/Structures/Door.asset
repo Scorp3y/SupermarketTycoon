@@ -21,13 +21,13 @@ MonoBehaviour:
   unlockCondition: {fileID: 0}
   category: 1
   subCategory: 0
-  footprint: {x: 1, y: 1}
+  footprint: {x: 5, y: 1}
   allowRotation: 1
   ruleFlags: 3
   placementKind: 2
   floorMaterial: {fileID: 0}
   accessibilitySides: 1
-  pivotOffset: {x: 0, y: 0}
+  pivotOffset: {x: -2, y: 0}
   prefab: {fileID: 4879651958525246032, guid: 4d54278c1a9524447a5b02d722f46fc3, type: 3}
   previewValidMaterial: {fileID: 2100000, guid: b737f1f25c90f1842999d06f57aa1608, type: 2}
   previewInvalidMaterial: {fileID: 2100000, guid: cd8bbf8a301d0664386b1c15cc42650f, type: 2}

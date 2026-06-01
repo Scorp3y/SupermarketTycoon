@@ -41,14 +41,30 @@ namespace RetailEmpireTycoon.BuildSystem
             );
         }
 
-        public IEnumerable<Vector3Int> GetFootprintCells(Vector3Int anchorCell, Vector2Int size, bool rotated)
+        public IEnumerable<Vector3Int> GetFootprintCells(Vector3Int anchorCell, Vector2Int size, bool rotated, Vector2Int pivotOffset)
         {
             var w = rotated ? size.y : size.x;
             var h = rotated ? size.x : size.y;
 
+            var ox = rotated ? pivotOffset.y : pivotOffset.x;
+            var oz = rotated ? pivotOffset.x : pivotOffset.y;
+
             for (var dx = 0; dx < w; dx++)
-            for (var dz = 0; dz < h; dz++)
-                yield return new Vector3Int(anchorCell.x + dx, anchorCell.y, anchorCell.z + dz);
+            {
+                for (var dz = 0; dz < h; dz++)
+                {
+                    yield return new Vector3Int(
+                        anchorCell.x + ox + dx,
+                        anchorCell.y,
+                        anchorCell.z + oz + dz
+                    );
+                }
+            }
+        }
+
+        public IEnumerable<Vector3Int> GetFootprintCells(Vector3Int anchorCell, Vector2Int size, bool rotated)
+        {
+            return GetFootprintCells(anchorCell, size, rotated, Vector2Int.zero);
         }
 
         public bool IsOccupied(Vector3Int cell) => _occupied.Contains(cell);

@@ -15,15 +15,17 @@ MonoBehaviour:
   id: shelf_wallgoods_01
   displayName: Wall Goods Shelf
   description: For food, drinks, toys
-  icon: {fileID: 21300000, guid: 8182ffd8aed0c0c41857ea85592ec087, type: 3}
+  icon: {fileID: 21300000, guid: 9aad4bc61ef605f45bd5f17cbd970feb, type: 3}
   price: 200
   unlockedByDefault: 1
   unlockCondition: {fileID: 0}
   category: 0
   subCategory: 1
-  footprint: {x: 2, y: 1}
+  footprint: {x: 3, y: 2}
   allowRotation: 1
   ruleFlags: 7
+  placementKind: 0
+  floorMaterial: {fileID: 0}
   accessibilitySides: 1
   pivotOffset: {x: 0, y: 0}
   prefab: {fileID: 2136195546583210846, guid: 67ff5339647faca4dbc93eada824efd1, type: 3}
