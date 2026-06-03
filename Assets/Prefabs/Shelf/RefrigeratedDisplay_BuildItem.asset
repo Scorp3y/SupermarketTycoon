@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d6abad8a36b0794996f8dedd8a8e734, type: 3}
+  m_Name: RefrigeratedDisplay_BuildItem
+  m_EditorClassIdentifier: 
+  id: shelf_refrigerated_01
+  displayName: Refrigerated Display
+  description: For dairy products
+  icon: {fileID: 21300000, guid: c3d25154738a43541bdc1e5f432c73fe, type: 3}
+  price: 500
+  unlockedByDefault: 1
+  unlockCondition: {fileID: 0}
+  category: 0
+  subCategory: 1
+  footprint: {x: 4, y: 2}
+  allowRotation: 1
+  ruleFlags: 7
+  placementKind: 0
+  floorMaterial: {fileID: 0}
+  accessibilitySides: 1
+  pivotOffset: {x: 0, y: 0}
+  prefab: {fileID: 8256072556386676897, guid: 182f989a1adcdb140a78f27d77b1edbb, type: 3}
+  previewValidMaterial: {fileID: 2100000, guid: b737f1f25c90f1842999d06f57aa1608, type: 2}
+  previewInvalidMaterial: {fileID: 2100000, guid: cd8bbf8a301d0664386b1c15cc42650f, type: 2}
+  shelfData: {fileID: 0}
+  decorationData: {fileID: 0}
+  cashierData: {fileID: 0}

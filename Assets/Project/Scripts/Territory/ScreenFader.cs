@@ -11,9 +11,22 @@ public sealed class ScreenFader : MonoBehaviour
     private void Awake()
     {
         if (_cg == null) _cg = GetComponentInChildren<CanvasGroup>(true);
-        if (_cg == null)
-            Debug.LogError("[ScreenFader] CanvasGroup не найден. Добавь CanvasGroup на объект затемнения и назначь его в инспекторе.", this);
     }
+    
+    public void SetInstant(float alpha, bool blockRaycasts = true)
+    {
+        if (_cg == null) _cg = GetComponentInChildren<CanvasGroup>(true);
+        if (_cg == null) return;
+
+        if (!_cg.gameObject.activeInHierarchy)
+            _cg.gameObject.SetActive(true);
+
+        _cg.alpha = Mathf.Clamp01(alpha);
+        _cg.blocksRaycasts = blockRaycasts && _cg.alpha > 0.001f;
+        _cg.interactable = false;
+    }
+
+
     public IEnumerator FadeOut()
     {
         yield return FadeTo(1f);
@@ -21,14 +34,18 @@ public sealed class ScreenFader : MonoBehaviour
     public IEnumerator FadeIn()
     {
         yield return FadeTo(0f);
-        FindObjectOfType<TerritoryPurchaseModeManager>()?.Exit();
     }
-
-
 
     private IEnumerator FadeTo(float target)
     {
+        if (_cg == null) _cg = GetComponentInChildren<CanvasGroup>(true);
         if (_cg == null) yield break;
+
+        if (!_cg.gameObject.activeInHierarchy)
+            _cg.gameObject.SetActive(true);
+
+        _cg.blocksRaycasts = true;
+        _cg.interactable = false;
         if (_r != null) StopCoroutine(_r);
         float start = _cg.alpha;
 
@@ -41,5 +58,8 @@ public sealed class ScreenFader : MonoBehaviour
             yield return null;
         }
         _cg.alpha = target;
+
+        if (Mathf.Approximately(target, 0f))
+            _cg.blocksRaycasts = false;
     }
 }

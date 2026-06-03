@@ -2,7 +2,8 @@
 using System.IO;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
+using RetailEmpireTycoon.Economy;
+using RetailEmpireTycoon.BuildSystem;
 
 public class SaveManager : MonoBehaviour
 {
@@ -10,19 +11,32 @@ public class SaveManager : MonoBehaviour
     private GameData gameData;
 
     public static SaveManager Instance;
+
+    [Header("UI")]
     public Button saveButton;
+
+    [Header("Money")]
+    [SerializeField] private MoneyController _money;
+
+    [Header("Build Save")]
+    [SerializeField] private BuildInventory _buildInventory;
+    [SerializeField] private BuildController _buildController;
+    [SerializeField] private FloorPainter _floorPainter;
+    [SerializeField] private BuildItemCatalog _buildCatalog;
+
+    [Header("Territory/Store")]
+    [SerializeField] private StorePrefabSpawner _storeSpawner;
+    [SerializeField] private StoreProgression _progression;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+        else { Destroy(gameObject); return; }
 
-        gameData = new GameData();
         saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
+        gameData = new GameData();
+
+        FindRefs();
     }
 
     private void Start()
@@ -34,75 +48,69 @@ public class SaveManager : MonoBehaviour
             saveButton.onClick.AddListener(OnSaveButtonClicked);
     }
 
+    private void FindRefs()
+    {
+        if (_money == null)
+            _money = FindObjectOfType<MoneyController>(true);
+
+        if (_buildInventory == null)
+            _buildInventory = FindObjectOfType<BuildInventory>(true);
+
+        if (_buildController == null)
+            _buildController = FindObjectOfType<BuildController>(true);
+
+        if (_floorPainter == null)
+            _floorPainter = FindObjectOfType<FloorPainter>(true);
+
+        if (_buildCatalog == null)
+            _buildCatalog = FindObjectOfType<BuildItemCatalog>(true);
+
+        if (_progression == null)
+            _progression = StoreProgression.Instance ?? FindObjectOfType<StoreProgression>(true);
+
+        if (_storeSpawner == null)
+            _storeSpawner = FindObjectOfType<StorePrefabSpawner>(true);
+    }
+
     private IEnumerator LoadAfterOneFrame()
     {
         yield return null;
         yield return new WaitForEndOfFrame();
 
         LoadGame();
-
-        if (GameManager.Instance != null)
-            GameManager.Instance.ForceRefreshUI();
-
-        if (WarehouseManager.Instance != null)
-            WarehouseManager.Instance.EnableProductButtons();
     }
 
     public void SaveGame()
     {
+        FindRefs();
+
         gameData ??= new GameData();
 
-        // money
-        if (GameManager.Instance != null)
-            gameData.playerMoney = GameManager.Instance.playerMoney;
+        if (_money != null)
+            gameData.playerMoney = _money.Money;
 
-        // products
-        gameData.products ??= new List<ProductData>();
-        gameData.products.Clear();
+        if (_progression != null)
+            gameData.territory = _progression.BuildSaveData();
 
-        if (WarehouseManager.Instance != null && WarehouseManager.Instance.products != null)
-        {
-            foreach (var product in WarehouseManager.Instance.products)
-            {
-                if (product == null) continue;
+        if (_buildInventory != null)
+            gameData.buildInventory = _buildInventory.BuildSaveData();
 
-                gameData.products.Add(new ProductData
-                {
-                    productName = product.productName,
-                    quantity = product.quantity
-                });
-            }
-        }
+        if (_buildController != null)
+            gameData.placedObjects = _buildController.BuildPlacedSaveData();
 
-        // shop items
-        gameData.shopItems ??= new List<ShopItemData>();
-        gameData.shopItems.Clear();
-
-        if (ShopManager.Instance != null && ShopManager.Instance.shopItems != null)
-        {
-            foreach (var shopItem in ShopManager.Instance.shopItems)
-            {
-                if (shopItem == null) continue;
-
-                gameData.shopItems.Add(new ShopItemData
-                {
-                    itemName = shopItem.itemName,
-                    isActive = shopItem.isActive
-                });
-            }
-        }
-
-        // territory
-        var prog = StoreProgression.Instance ?? FindObjectOfType<StoreProgression>(true);
-        if (prog != null)
-            gameData.territory = prog.BuildSaveData();
+        if (_floorPainter != null)
+            gameData.floorTiles = _floorPainter.BuildSaveData();
 
         string json = JsonUtility.ToJson(gameData, true);
         File.WriteAllText(saveFilePath, json);
+
+        Debug.Log("[SaveManager] Saved: " + saveFilePath);
     }
 
     public void LoadGame()
     {
+        FindRefs();
+
         if (!File.Exists(saveFilePath))
         {
             SpawnStoreFromProgressOrDefault();
@@ -112,71 +120,48 @@ public class SaveManager : MonoBehaviour
         string json = File.ReadAllText(saveFilePath);
         gameData = JsonUtility.FromJson<GameData>(json);
 
-        // money
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.playerMoney = gameData.playerMoney;
-            GameManager.Instance.ForceRefreshUI();
-        }
-
-        // products
-        if (WarehouseManager.Instance != null && gameData.products != null)
-            WarehouseManager.Instance.LoadProducts(gameData.products);
-
-        // shop items
-        if (ShopManager.Instance != null && gameData.shopItems != null)
-        {
-            foreach (var d in gameData.shopItems)
-            {
-                var shopItem = ShopManager.Instance.shopItems.Find(x => x.itemName == d.itemName);
-                if (shopItem == null) continue;
-
-                shopItem.isActive = d.isActive;
-
-                if (shopItem.objectToActivate != null)
-                    shopItem.objectToActivate.SetActive(shopItem.isActive);
-
-                if (shopItem.buyButton != null)
-                {
-                    if (!shopItem.isActive)
-                    {
-                        shopItem.buyButton.gameObject.SetActive(true);
-                        shopItem.buyButton.onClick.RemoveAllListeners();
-
-                        ShopItem captured = shopItem;
-                        shopItem.buyButton.onClick.AddListener(
-                            () => ShopManager.Instance.BuyItem(captured)
-                        );
-                    }
-                    else
-                    {
-                        Destroy(shopItem.buyButton.gameObject);
-                    }
-                }
-            }
-        }
-
         SpawnStoreFromProgressOrDefault();
+
+        FindRefs();
+
+        if (_money != null)
+            _money.SetMoney(gameData.playerMoney);
+
+        if (_buildInventory != null && _buildCatalog != null)
+            _buildInventory.ApplySaveData(gameData.buildInventory, _buildCatalog);
+
+        if (_buildController != null && _buildCatalog != null)
+            _buildController.ApplyPlacedSaveData(gameData.placedObjects, _buildCatalog);
+
+        if (_floorPainter != null && _buildCatalog != null)
+            _floorPainter.ApplySaveData(gameData.floorTiles, _buildCatalog);
+
+        Debug.Log("[SaveManager] Loaded: " + saveFilePath);
     }
 
     private void SpawnStoreFromProgressOrDefault()
     {
-        var prog = StoreProgression.Instance ?? FindObjectOfType<StoreProgression>(true);
-        var spawner = FindObjectOfType<StorePrefabSpawner>();
+        if (_storeSpawner == null)
+            return;
 
-        if (prog != null && gameData != null && gameData.territory != null)
-            prog.ApplySaveData(gameData.territory);
+        StoreLevelId desiredLevel = StoreLevelId.Lvl1;
 
-        if (spawner != null)
+        if (_progression != null && gameData?.territory != null)
         {
-            var level = (prog != null)
-                ? prog.State.CurrentLevel
-                : StoreLevelId.Lvl1;
-
-            spawner.Spawn(level);
+            _progression.ApplySaveData(gameData.territory);
+            desiredLevel = _progression.State.CurrentLevel;
         }
+
+        _storeSpawner.Spawn(desiredLevel);
     }
 
-    public void AutoSave() => SaveGame();
-    private void OnSaveButtonClicked() => SaveGame();
+    public void AutoSave()
+    {
+        SaveGame();
+    }
+
+    private void OnSaveButtonClicked()
+    {
+        SaveGame();
+    }
 }
