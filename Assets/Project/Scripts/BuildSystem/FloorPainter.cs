@@ -115,8 +115,77 @@ namespace RetailEmpireTycoon.BuildSystem
                 if (r != null)
                     r.sharedMaterial = item.floorMaterial;
 
+                var marker = tile.GetComponent<PlacedFloorTile>() ?? tile.AddComponent<PlacedFloorTile>();
+                marker.item = item;
+                marker.cell = cell;
+
                 _tiles[cell] = tile;
             }
         }
+
+        public List<FloorTileSaveData> BuildSaveData()
+        {
+            var result = new List<FloorTileSaveData>();
+
+            foreach (var pair in _tiles)
+            {
+                var cell = pair.Key;
+                var tile = pair.Value;
+
+                if (tile == null)
+                    continue;
+
+                var marker = tile.GetComponent<PlacedFloorTile>();
+                if (marker == null || marker.item == null)
+                    continue;
+
+                result.Add(new FloorTileSaveData
+                {
+                    itemId = marker.item.id,
+                    x = cell.x,
+                    z = cell.z
+                });
+            }
+
+            return result;
+        }
+
+        public void ApplySaveData(List<FloorTileSaveData> data, BuildItemCatalog catalog)
+        {
+            ClearPlacedFloors();
+
+            if (data == null || catalog == null)
+                return;
+
+            foreach (var d in data)
+            {
+                var item = catalog.GetById(d.itemId);
+                if (item == null)
+                    continue;
+
+                var cell = new Vector3Int(d.x, 0, d.z);
+                PaintCells(new List<Vector3Int> { cell }, item);
+            }
+        }
+
+        private void ClearPlacedFloors()
+        {
+            foreach (var pair in _tiles)
+            {
+                if (pair.Value != null)
+                    Destroy(pair.Value);
+            }
+
+            _tiles.Clear();
+
+            if (floorRoot != null)
+            {
+                for (int i = floorRoot.childCount - 1; i >= 0; i--)
+                    Destroy(floorRoot.GetChild(i).gameObject);
+            }
+        }
+
     }
+
+
 }

@@ -6,13 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class ControlPanel : MonoBehaviour
 {
-    public GameObject storePanel, buildPanel, warehousePanel, settingPanel;
+    public GameObject settingPanel;
     public MainCamera cameraController;
     void Start()
     {
-        storePanel.SetActive(false);
-        buildPanel.SetActive(false);
-        warehousePanel.SetActive(false);
+
         settingPanel.SetActive(false);
 
         if (cameraController == null)
@@ -31,54 +29,40 @@ public class ControlPanel : MonoBehaviour
 
     public void OpenPanelStore()
     {
-        storePanel.SetActive(true);
-        buildPanel.SetActive(false);
-        warehousePanel.SetActive(false);
+
         settingPanel.SetActive(false);
         LockCamera(true);
     }
 
     public void ExitPanelStore()
     {
-        storePanel.SetActive(false);
-        buildPanel.SetActive(false);
-        warehousePanel.SetActive(false);
+
         settingPanel.SetActive(false);
         LockCamera(false);
     }
 
     public void TransitionStore()
     {
-        storePanel.SetActive(true);
-        buildPanel.SetActive(false);
-        warehousePanel.SetActive(false);
+
         settingPanel.SetActive(false);
         LockCamera(true);
     }
 
     public void TransitionBuild()
     {
-        storePanel.SetActive(false);
-        warehousePanel.SetActive(false);
         settingPanel.SetActive(false);
-        buildPanel.SetActive(true);
         LockCamera(true);
     }
 
     public void OpenPanelWarehouse()
     {
-        warehousePanel.SetActive(true);
-        storePanel.SetActive(false);
-        buildPanel.SetActive (false);
+
         settingPanel.SetActive(false);
         LockCamera(true);
     }
 
     public void ExitWarehouse() 
     { 
-        warehousePanel.SetActive(false);
-        buildPanel.SetActive(false);
-        storePanel.SetActive(false);
         settingPanel.SetActive(false);
         LockCamera(false);
     }
@@ -91,9 +75,6 @@ public class ControlPanel : MonoBehaviour
 
     public void ExitSetting ()
     {
-        warehousePanel.SetActive(false);
-        buildPanel.SetActive(false);
-        storePanel.SetActive(false);
         settingPanel.SetActive(false);
         LockCamera(false);
     }

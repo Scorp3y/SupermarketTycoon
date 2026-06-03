@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d6abad8a36b0794996f8dedd8a8e734, type: 3}
   m_Name: Floor
   m_EditorClassIdentifier: 
-  id: 1
+  id: floor_01
   displayName: Floor
   description: 
   icon: {fileID: 21300000, guid: 694294511e886524698eebecde29b0a5, type: 3}

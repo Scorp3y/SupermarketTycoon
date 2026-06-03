@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RetailEmpireTycoon.Core;
 using UnityEngine.Scripting.APIUpdating;
+using RetailEmpireTycoon.BuildSystem;
 
 namespace RetailEmpireTycoon.BuildSystem
 {
@@ -73,6 +74,57 @@ namespace RetailEmpireTycoon.BuildSystem
                     return e;
             }
             return null;
+        }
+
+        public List<BuildInventorySaveEntry> BuildSaveData()
+        {
+            var result = new List<BuildInventorySaveEntry>();
+
+            foreach (var e in entries)
+            {
+                if (e == null || e.item == null || e.count <= 0)
+                    continue;
+
+                result.Add(new BuildInventorySaveEntry
+                {
+                    itemId = e.item.id,
+                    count = e.count
+                });
+            }
+
+            return result;
+        }
+
+        public void ApplySaveData(List<BuildInventorySaveEntry> data, BuildItemCatalog catalog)
+        {
+            entries.Clear();
+
+            if (data != null && catalog != null)
+            {
+                foreach (var d in data)
+                {
+                    if (d == null || d.count <= 0)
+                        continue;
+
+                    var item = catalog.GetById(d.itemId);
+                    if (item == null)
+                        continue;
+
+                    entries.Add(new Entry
+                    {
+                        item = item,
+                        count = d.count
+                    });
+                }
+            }
+
+            Changed?.Invoke();
+        }
+
+        public void Clear()
+        {
+            entries.Clear();
+            Changed?.Invoke();
         }
     }
 }

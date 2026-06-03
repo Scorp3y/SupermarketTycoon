@@ -1,33 +1,46 @@
 using System;
 using System.Collections.Generic;
 
-[System.Serializable]
+[Serializable]
 public class GameData
 {
-    public int playerMoney;
-    public List<ProductData> products = new List<ProductData>();
-    public List<ShopItemData> shopItems = new List<ShopItemData>();
+    public int playerMoney = 6000;
+
     public TerritorySaveData territory = new TerritorySaveData();
+
+    public List<BuildInventorySaveEntry> buildInventory = new List<BuildInventorySaveEntry>();
+    public List<PlacedBuildSaveData> placedObjects = new List<PlacedBuildSaveData>();
+    public List<FloorTileSaveData> floorTiles = new List<FloorTileSaveData>();
 }
 
-[System.Serializable]
+[Serializable]
 public class TerritorySaveData
 {
     public List<string> purchased = new List<string>();
-    public string storeLevel = "Lvl1";                  
+    public string storeLevel = "Lvl1";
 }
 
-[System.Serializable]
-public class ProductData
+[Serializable]
+public class BuildInventorySaveEntry
 {
-    public string productName;
-    public int price;
-    public int quantity;
+    public string itemId;
+    public int count;
 }
 
-[System.Serializable]
-public class ShopItemData
+[Serializable]
+public class PlacedBuildSaveData
 {
-    public string itemName;
-    public bool isActive;
+    public string itemId;
+    public int x;
+    public int z;
+    public bool rotated;
+    public int facing;
+}
+
+[Serializable]
+public class FloorTileSaveData
+{
+    public string itemId;
+    public int x;
+    public int z;
 }

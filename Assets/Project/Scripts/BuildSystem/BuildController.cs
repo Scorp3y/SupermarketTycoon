@@ -297,6 +297,89 @@ namespace RetailEmpireTycoon.BuildSystem
                 floorPainter.ClearPreview();
             }
         }
+
+        public List<PlacedBuildSaveData> BuildPlacedSaveData()
+        {
+            var result = new List<PlacedBuildSaveData>();
+
+            var placedObjects = FindObjectsOfType<PlacedObject>(true);
+
+            foreach (var placed in placedObjects)
+            {
+                if (placed == null || placed.item == null)
+                    continue;
+
+                result.Add(new PlacedBuildSaveData
+                {
+                    itemId = placed.item.id,
+                    x = placed.anchorCell.x,
+                    z = placed.anchorCell.z,
+                    rotated = placed.rotated,
+                    facing = placed.facing
+                });
+            }
+
+            return result;
+        }
+
+        public void ApplyPlacedSaveData(List<PlacedBuildSaveData> data, BuildItemCatalog catalog)
+        {
+            ClearPlacedObjects();
+
+            if (grid != null)
+                grid.ClearAll();
+
+            if (data == null || catalog == null)
+                return;
+
+            foreach (var d in data)
+            {
+                var item = catalog.GetById(d.itemId);
+                if (item == null || item.prefab == null)
+                    continue;
+
+                var cell = new Vector3Int(d.x, 0, d.z);
+                var req = new PlacementRequest(item, cell, d.rotated, d.facing);
+
+                SpawnPlacedFromSave(req);
+            }
+        }
+
+        private void ClearPlacedObjects()
+        {
+            var placedObjects = FindObjectsOfType<PlacedObject>(true);
+
+            foreach (var placed in placedObjects)
+            {
+                if (placed != null)
+                    Destroy(placed.gameObject);
+            }
+        }
+
+        private void SpawnPlacedFromSave(PlacementRequest req)
+        {
+            if (req.item == null) return;
+            if (req.item.prefab == null) return;
+            if (grid == null) return;
+
+            var worldPos = grid.CellToWorld(req.anchorCell);
+            var rot = Quaternion.Euler(0f, req.facing * 90f, 0f);
+
+            var go = Instantiate(req.item.prefab, worldPos, rot);
+            var placed = go.GetComponent<PlacedObject>() ?? go.AddComponent<PlacedObject>();
+
+            placed.item = req.item;
+            placed.anchorCell = req.anchorCell;
+            placed.rotated = req.rotated;
+            placed.facing = req.facing;
+
+            var cells = new List<Vector3Int>(
+                grid.GetFootprintCells(req.anchorCell, req.item.footprint, req.rotated, req.item.pivotOffset)
+            );
+
+            placed.occupiedCells = cells;
+            grid.Occupy(cells);
+        }
     }
 
 

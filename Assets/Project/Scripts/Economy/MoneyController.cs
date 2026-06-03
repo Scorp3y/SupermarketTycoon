@@ -8,14 +8,21 @@ namespace RetailEmpireTycoon.Economy
     [MovedFrom(false, "MyShopGame.Economy", null, "MoneyController")]
     public sealed class MoneyController : MonoBehaviour
     {
-        [SerializeField]
-        private int money = 1000;
+        [SerializeField] private int money = 6000;
 
         public event Action<int> Changed;
 
         public int Money => money;
 
-        public bool CanSpend(int amount) => amount >= 0 && money >= amount;
+        private void Start()
+        {
+            Changed?.Invoke(money);
+        }
+
+        public bool CanSpend(int amount)
+        {
+            return amount >= 0 && money >= amount;
+        }
 
         public bool TrySpend(int amount)
         {
@@ -33,6 +40,12 @@ namespace RetailEmpireTycoon.Economy
                 return;
 
             money += amount;
+            Changed?.Invoke(money);
+        }
+
+        public void SetMoney(int value)
+        {
+            money = Mathf.Max(0, value);
             Changed?.Invoke(money);
         }
     }

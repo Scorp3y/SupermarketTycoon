@@ -40,11 +40,8 @@ public sealed class TerritoryZone : MonoBehaviour
 
         if (_visual != null) _visual.SetState(state);
 
-        // После покупки: нельзя снова кликнуть/купить эту территорию.
-        // Также убираем визуальную рамку (LineRenderer) через TerritoryVisual.
         if (purchased)
         {
-            // Выключаем все коллайдеры на зоне (и дочерних объектах), чтобы raycast больше не попадал.
             foreach (var c in GetComponentsInChildren<Collider>(true))
                 c.enabled = false;
         }
