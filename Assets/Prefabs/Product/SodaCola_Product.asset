@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9e6a6525fc7f040b4609e2816719cf, type: 3}
   m_Name: SodaCola_Product
   m_EditorClassIdentifier: 
-  id: 
-  displayName: 
-  icon: {fileID: 0}
-  buyPrice: 10
-  sellPrice: 20
+  id: product_sodacola
+  displayName: Soda Cola
+  icon: {fileID: 21300000, guid: 1645523362df0b64c975bfa18f3a8ead, type: 3}
+  buyPrice: 40
+  sellPrice: 50
   boxAmount: 10
-  category: 0
+  category: 1

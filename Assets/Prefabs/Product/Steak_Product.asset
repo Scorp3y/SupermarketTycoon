@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9e6a6525fc7f040b4609e2816719cf, type: 3}
   m_Name: Steak_Product
   m_EditorClassIdentifier: 
-  id: 
-  displayName: 
-  icon: {fileID: 0}
-  buyPrice: 10
-  sellPrice: 20
+  id: product_steak
+  displayName: Steak
+  icon: {fileID: 21300000, guid: 699245bb9a864f046a50a77746e1adad, type: 3}
+  buyPrice: 50
+  sellPrice: 60
   boxAmount: 10
-  category: 0
+  category: 3
