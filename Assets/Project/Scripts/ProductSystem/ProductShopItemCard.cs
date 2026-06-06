@@ -30,8 +30,13 @@ namespace RetailEmpireTycoon.UI.Products
             _inventory = inventory;
 
             Subscribe();
-            RefreshView();
             HookButton();
+            RefreshView();
+        }
+
+        private void OnDisable()
+        {
+            Unsubscribe();
         }
 
         private void OnDestroy()
@@ -57,11 +62,6 @@ namespace RetailEmpireTycoon.UI.Products
                 _inventory.Changed -= RefreshView;
         }
 
-        private void HandleMoneyChanged(int value)
-        {
-            RefreshButtonState();
-        }
-
         private void HookButton()
         {
             if (buyButton == null)
@@ -69,6 +69,11 @@ namespace RetailEmpireTycoon.UI.Products
 
             buyButton.onClick.RemoveAllListeners();
             buyButton.onClick.AddListener(Buy);
+        }
+
+        private void HandleMoneyChanged(int value)
+        {
+            RefreshButtonState();
         }
 
         private void RefreshView()
@@ -87,12 +92,18 @@ namespace RetailEmpireTycoon.UI.Products
                 priceText.text = _item != null ? "$" + _item.BuyPrice : "$0";
 
             if (boxAmountText != null)
-                boxAmountText.text = _item != null ? "Box x" + _item.BoxAmount : "Box x0";
+                boxAmountText.text = _item != null ? "QTY: " + _item.BoxAmount : "QTY: 0";
 
             if (ownedAmountText != null)
-                ownedAmountText.text = _item != null && _inventory != null
-                    ? "Owned x" + _inventory.GetCount(_item)
-                    : "Owned x0";
+                ownedAmountText.text = GetOwnedText();
+        }
+
+        private string GetOwnedText()
+        {
+            if (_item == null || _inventory == null)
+                return "OWNED: 0";
+
+            return "OWNED: " + _inventory.GetCount(_item);
         }
 
         private void RefreshIcon()
@@ -109,16 +120,20 @@ namespace RetailEmpireTycoon.UI.Products
             if (buyButton == null)
                 return;
 
-            buyButton.interactable =
-                _item != null &&
-                _money != null &&
-                _inventory != null &&
-                _money.CanSpend(_item.BuyPrice);
+            buyButton.interactable = CanBuy();
+        }
+
+        private bool CanBuy()
+        {
+            return _item != null
+                && _money != null
+                && _inventory != null
+                && _money.CanSpend(_item.BuyPrice);
         }
 
         private void Buy()
         {
-            if (_item == null || _money == null || _inventory == null)
+            if (!CanBuy())
                 return;
 
             if (!_money.TrySpend(_item.BuyPrice))

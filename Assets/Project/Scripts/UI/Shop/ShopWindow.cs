@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using RetailEmpireTycoon.Core;
 using RetailEmpireTycoon.Economy;
 using RetailEmpireTycoon.BuildSystem;
+using RetailEmpireTycoon.Products;
+using RetailEmpireTycoon.UI.Products;
 using UnityEngine.Scripting.APIUpdating;
 
 namespace RetailEmpireTycoon.UI.Shop
@@ -11,63 +13,64 @@ namespace RetailEmpireTycoon.UI.Shop
     [MovedFrom(false, "MyShopGame.UI.Shop", null, "ShopWindow")]
     public sealed class ShopWindow : MonoBehaviour
     {
-        [Header("Data")]
-        [Tooltip("Fallback catalog if you don't use a runtime catalog loader. Keep this filled or your shop will be empty.")]
-        public List<BuildItemData> catalog = new List<BuildItemData>();
+        private enum ViewMode
+        {
+            MainTabs,
+            BuildCategories,
+            BuildItems,
+            Products
+        }
+
+        [Header("Build Data")]
+        [Tooltip("Build items catalog: shelves, walls, doors, floors.")]
+        [SerializeField] private List<BuildItemData> catalog = new List<BuildItemData>();
+
+        [Header("Product Data")]
+        [SerializeField] private ProductCatalog productCatalog;
+        [SerializeField] private List<ProductItemData> fallbackProducts = new List<ProductItemData>();
 
         [Header("Scene Refs")]
-        public MoneyController money;
-        public BuildInventory inventory;
+        [SerializeField] private MoneyController money;
+        [SerializeField] private BuildInventory inventory;
+        [SerializeField] private ProductInventory productInventory;
 
         [Header("UI - Main Flow")]
-        public GameObject mainCategoriesPanel;   
-        public GameObject mainTabsPanel;         
-        public GameObject tabsCategoriesPanel;   
-        public GameObject categoryViewPanel;     
-        public Button backButton;
-        public GameObject emptyLabel;
+        [SerializeField] private GameObject mainCategoriesPanel;
+        [SerializeField] private GameObject mainTabsPanel;
+        [SerializeField] private GameObject tabsCategoriesPanel;
+        [SerializeField] private GameObject categoryViewPanel;
+        [SerializeField] private Button backButton;
+        [SerializeField] private GameObject emptyLabel;
 
         [Header("UI - List")]
-        public Transform listRoot;
-        public ShopItemCard cardPrefab;
-        public GameObject buildInventoryWindow;
+        [SerializeField] private Transform listRoot;
+        [SerializeField] private ShopItemCard cardPrefab;
+        [SerializeField] private ProductShopItemCard productCardPrefab;
+        [SerializeField] private GameObject buildInventoryWindow;
 
         [Header("State")]
-        [SerializeField] private BuildCategory _shopFilter = BuildCategory.Shelf;
+        [SerializeField] private BuildCategory shopFilter = BuildCategory.Shelf;
 
         [Header("Legacy (optional)")]
-        [Tooltip("Old tab-based shop UI. If set and the new panels are not assigned, this will be used.")]
-        public ShopTab_Build buildTab;
+        [Tooltip("Old tab-based shop UI. Keep empty if using the new main tab flow.")]
+        [SerializeField] private ShopTab_Build buildTab;
 
         [Header("Camera Lock (optional)")]
         [SerializeField] private Behaviour[] cameraBehavioursToDisable;
 
-        private readonly List<(Behaviour b, bool wasEnabled)> _cameraState = new();
+        private readonly List<(Behaviour behaviour, bool wasEnabled)> _cameraState = new();
+        private ViewMode _viewMode = ViewMode.MainTabs;
 
         private void Awake()
         {
-            if (cameraBehavioursToDisable == null || cameraBehavioursToDisable.Length == 0)
-            {
-                var cam = Camera.main;
-                if (cam != null)
-                {
-                    var mainCamController = cam.GetComponent<global::MainCamera>();
-                    if (mainCamController != null)
-                        cameraBehavioursToDisable = new Behaviour[] { mainCamController };
-                }
-            }
+            FindMissingRefs();
+            PrepareCameraLock();
         }
 
         private void OnEnable()
         {
             LockCamera(true);
-
-            if (backButton != null)
-            {
-                backButton.onClick.RemoveAllListeners();
-                backButton.onClick.AddListener(BackToMainTabs);
-            }
-
+            HookBackButton();
             ShowMainTabs();
 
             if (buildInventoryWindow != null)
@@ -79,65 +82,49 @@ namespace RetailEmpireTycoon.UI.Shop
             LockCamera(false);
         }
 
-        private void LockCamera(bool locked)
-        {
-            if (locked)
-            {
-                _cameraState.Clear();
-                if (cameraBehavioursToDisable == null) return;
-
-                for (int i = 0; i < cameraBehavioursToDisable.Length; i++)
-                {
-                    var b = cameraBehavioursToDisable[i];
-                    if (b == null) continue;
-
-                    if (b is Camera || b is AudioListener)
-                        continue;
-
-                    _cameraState.Add((b, b.enabled));
-                    b.enabled = false;
-                }
-            }
-            else
-            {
-                for (int i = 0; i < _cameraState.Count; i++)
-                {
-                    var (b, wasEnabled) = _cameraState[i];
-                    if (b == null) continue;
-                    b.enabled = wasEnabled;
-                }
-
-                _cameraState.Clear();
-            }
-        }
-
         public void Close()
         {
             gameObject.SetActive(false);
         }
 
         // =========================
-        // STEP 1: Main tabs flow
+        // Main tabs
         // =========================
 
         public void ShowMainTabs()
         {
-            ClearList();
+            _viewMode = ViewMode.MainTabs;
 
-            if (mainCategoriesPanel != null) mainCategoriesPanel.SetActive(true);
-            if (mainTabsPanel != null) mainTabsPanel.SetActive(true);
-            if (tabsCategoriesPanel != null) tabsCategoriesPanel.SetActive(false);
-            if (categoryViewPanel != null) categoryViewPanel.SetActive(false);
-            if (emptyLabel != null) emptyLabel.SetActive(false);
+            ClearList();
+            SetPanel(mainCategoriesPanel, true);
+            SetPanel(mainTabsPanel, true);
+            SetPanel(tabsCategoriesPanel, false);
+            SetPanel(categoryViewPanel, false);
+            SetEmpty(false);
         }
 
         public void OpenBuildCategories()
         {
-            if (mainCategoriesPanel != null) mainCategoriesPanel.SetActive(true);
-            if (mainTabsPanel != null) mainTabsPanel.SetActive(false);
-            if (tabsCategoriesPanel != null) tabsCategoriesPanel.SetActive(true);
-            if (categoryViewPanel != null) categoryViewPanel.SetActive(false);
-            if (emptyLabel != null) emptyLabel.SetActive(false);
+            _viewMode = ViewMode.BuildCategories;
+
+            ClearList();
+            SetPanel(mainCategoriesPanel, true);
+            SetPanel(mainTabsPanel, false);
+            SetPanel(tabsCategoriesPanel, true);
+            SetPanel(categoryViewPanel, false);
+            SetEmpty(false);
+        }
+
+        public void OpenProducts()
+        {
+            _viewMode = ViewMode.Products;
+
+            SetPanel(mainCategoriesPanel, true);
+            SetPanel(mainTabsPanel, false);
+            SetPanel(tabsCategoriesPanel, false);
+            SetPanel(categoryViewPanel, true);
+
+            RefreshProducts();
         }
 
         public void BackToMainTabs()
@@ -147,15 +134,7 @@ namespace RetailEmpireTycoon.UI.Shop
 
         public void Back()
         {
-            if (categoryViewPanel.activeSelf)
-            {
-                if (categoryViewPanel != null) categoryViewPanel.SetActive(false);
-                if (tabsCategoriesPanel != null) tabsCategoriesPanel.SetActive(true);
-            }
-            else
-            {
-                ShowMainTabs();
-            }
+            ShowMainTabs();
         }
 
         // =========================
@@ -172,53 +151,221 @@ namespace RetailEmpireTycoon.UI.Shop
             OpenCategory(BuildCategory.Structures);
         }
 
+        public void OpenCategory_Decoration()
+        {
+            OpenCategory(BuildCategory.Decoration);
+        }
 
         public void OpenCategory(BuildCategory category)
         {
-            _shopFilter = category;
+            _viewMode = ViewMode.BuildItems;
+            shopFilter = category;
 
-            if (mainCategoriesPanel != null) mainCategoriesPanel.SetActive(true);
-            if (mainTabsPanel != null) mainTabsPanel.SetActive(false);
-            if (tabsCategoriesPanel != null) tabsCategoriesPanel.SetActive(true);
-            if (categoryViewPanel != null) categoryViewPanel.SetActive(true);
+            SetPanel(mainCategoriesPanel, true);
+            SetPanel(mainTabsPanel, false);
+            SetPanel(tabsCategoriesPanel, true);
+            SetPanel(categoryViewPanel, true);
 
-            Refresh();
+            RefreshBuildItems();
         }
 
+        // =========================
+        // Refresh
+        // =========================
+
         public void Refresh()
+        {
+            switch (_viewMode)
+            {
+                case ViewMode.BuildItems:
+                    RefreshBuildItems();
+                    return;
+
+                case ViewMode.Products:
+                    RefreshProducts();
+                    return;
+
+                case ViewMode.BuildCategories:
+                    OpenBuildCategories();
+                    return;
+
+                default:
+                    ShowMainTabs();
+                    return;
+            }
+        }
+
+        private void RefreshBuildItems()
         {
             ClearList();
 
             if (listRoot == null || cardPrefab == null)
             {
-                if (emptyLabel != null) emptyLabel.SetActive(true);
+                SetEmpty(true);
                 return;
             }
 
             int shown = 0;
 
-            for (int i = 0; i < catalog.Count; i++)
+            foreach (var item in catalog)
             {
-                var it = catalog[i];
-                if (it == null) continue;
-                if (it.category != _shopFilter) continue;
+                if (!ShouldShowBuildItem(item))
+                    continue;
 
                 var card = Instantiate(cardPrefab, listRoot);
-                card.Bind(it, money, inventory);
+                card.Bind(item, money, inventory);
                 shown++;
             }
 
-            if (emptyLabel != null)
-                emptyLabel.SetActive(shown == 0);
+            SetEmpty(shown == 0);
+        }
+
+        private void RefreshProducts()
+        {
+            ClearList();
+
+            if (listRoot == null || productCardPrefab == null)
+            {
+                SetEmpty(true);
+                return;
+            }
+
+            int shown = 0;
+            var products = GetProducts();
+
+            foreach (var product in products)
+            {
+                if (product == null)
+                    continue;
+
+                var card = Instantiate(productCardPrefab, listRoot);
+                card.Bind(product, money, productInventory);
+                shown++;
+            }
+
+            SetEmpty(shown == 0);
+        }
+
+        private bool ShouldShowBuildItem(BuildItemData item)
+        {
+            return item != null && item.category == shopFilter;
+        }
+
+        private IReadOnlyList<ProductItemData> GetProducts()
+        {
+            if (productCatalog != null && productCatalog.Products != null && productCatalog.Products.Count > 0)
+                return productCatalog.Products;
+
+            return fallbackProducts;
         }
 
         private void ClearList()
         {
-            if (listRoot == null) return;
+            if (listRoot == null)
+                return;
 
             for (int i = listRoot.childCount - 1; i >= 0; i--)
                 Destroy(listRoot.GetChild(i).gameObject);
         }
 
+        // =========================
+        // Setup
+        // =========================
+
+        private void FindMissingRefs()
+        {
+            if (money == null)
+                money = FindObjectOfType<MoneyController>(true);
+
+            if (inventory == null)
+                inventory = FindObjectOfType<BuildInventory>(true);
+
+            if (productInventory == null)
+                productInventory = FindObjectOfType<ProductInventory>(true);
+
+            if (productCatalog == null)
+                productCatalog = FindObjectOfType<ProductCatalog>(true);
+        }
+
+        private void PrepareCameraLock()
+        {
+            if (cameraBehavioursToDisable != null && cameraBehavioursToDisable.Length > 0)
+                return;
+
+            var cam = Camera.main;
+            if (cam == null)
+                return;
+
+            var mainCamera = cam.GetComponent<global::MainCamera>();
+            if (mainCamera == null)
+                return;
+
+            cameraBehavioursToDisable = new Behaviour[] { mainCamera };
+        }
+
+        private void HookBackButton()
+        {
+            if (backButton == null)
+                return;
+
+            backButton.onClick.RemoveAllListeners();
+            backButton.onClick.AddListener(BackToMainTabs);
+        }
+
+        private void LockCamera(bool locked)
+        {
+            if (locked)
+            {
+                SaveAndDisableCameraBehaviours();
+                return;
+            }
+
+            RestoreCameraBehaviours();
+        }
+
+        private void SaveAndDisableCameraBehaviours()
+        {
+            _cameraState.Clear();
+
+            if (cameraBehavioursToDisable == null)
+                return;
+
+            foreach (var behaviour in cameraBehavioursToDisable)
+            {
+                if (behaviour == null)
+                    continue;
+
+                if (behaviour is Camera || behaviour is AudioListener)
+                    continue;
+
+                _cameraState.Add((behaviour, behaviour.enabled));
+                behaviour.enabled = false;
+            }
+        }
+
+        private void RestoreCameraBehaviours()
+        {
+            foreach (var state in _cameraState)
+            {
+                if (state.behaviour == null)
+                    continue;
+
+                state.behaviour.enabled = state.wasEnabled;
+            }
+
+            _cameraState.Clear();
+        }
+
+        private void SetPanel(GameObject panel, bool visible)
+        {
+            if (panel != null)
+                panel.SetActive(visible);
+        }
+
+        private void SetEmpty(bool visible)
+        {
+            if (emptyLabel != null)
+                emptyLabel.SetActive(visible);
+        }
     }
 }

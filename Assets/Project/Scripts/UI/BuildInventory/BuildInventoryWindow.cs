@@ -2,6 +2,9 @@
 using UnityEngine;
 using RetailEmpireTycoon.BuildSystem;
 using RetailEmpireTycoon.Core;
+using RetailEmpireTycoon.Products;
+using RetailEmpireTycoon.Shelves;
+using RetailEmpireTycoon.UI.Products;
 using UnityEngine.Scripting.APIUpdating;
 
 namespace RetailEmpireTycoon.UI.Windows
@@ -9,159 +12,303 @@ namespace RetailEmpireTycoon.UI.Windows
     [MovedFrom(false, "MyShopGame.UI.Windows", null, "BuildInventoryWindow")]
     public sealed class BuildInventoryWindow : MonoBehaviour
     {
-        [Header("Refs")]
-        public BuildInventory inventory;
-        public BuildController buildController;
-        public GameObject shopWindow;
+        private enum InventoryTab
+        {
+            Furniture,
+            Products
+        }
+
+        [Header("Build Refs")]
+        [SerializeField] private BuildInventory inventory;
+        [SerializeField] private BuildController buildController;
+
+        [Header("Product Refs")]
+        [SerializeField] private ProductInventory productInventory;
+        [SerializeField] private ProductAssignMode productAssignMode;
+
+        [Header("Windows")]
+        [SerializeField] private GameObject shopWindow;
 
         [Header("UI")]
-        public GameObject mainCategoriesPanel;
-        public GameObject categoryViewPanel;
-        public GameObject emptyLabel;
+        [SerializeField] private GameObject mainCategoriesPanel;
+        [SerializeField] private GameObject categoryViewPanel;
+        [SerializeField] private GameObject emptyLabel;
 
         [Header("UI - List")]
-        public Transform listRoot;
-        public BuildInventoryItemRow rowPrefab;
-
-        [Header("Filter")]
-        public BuildCategory currentFilter = BuildCategory.Shelf;
+        [SerializeField] private Transform listRoot;
+        [SerializeField] private BuildInventoryItemRow rowPrefab;
+        [SerializeField] private ProductInventoryItemRow productRowPrefab;
 
         [Header("Camera Lock (optional)")]
         [SerializeField] private Behaviour[] cameraBehavioursToDisable;
 
-        private readonly List<BuildInventoryItemRow> _rows = new();
-        private readonly List<(Behaviour b, bool wasEnabled)> _cameraState = new();
+        private readonly List<GameObject> _spawnedRows = new();
+        private readonly List<(Behaviour behaviour, bool wasEnabled)> _cameraState = new();
+
+        [SerializeField] private InventoryTab currentTab = InventoryTab.Furniture;
 
         private void Awake()
         {
-            if (cameraBehavioursToDisable == null || cameraBehavioursToDisable.Length == 0)
-            {
-                var cam = Camera.main;
-                if (cam != null)
-                {
-                    var mainCamController = cam.GetComponent<global::MainCamera>();
-                    if (mainCamController != null)
-                        cameraBehavioursToDisable = new Behaviour[] { mainCamController };
-                }
-            }
+            FindMissingRefs();
+            PrepareCameraLock();
         }
 
         private void OnEnable()
         {
-            if (shopWindow != null)
-                shopWindow.SetActive(false);
-
-            if (inventory != null)
-                inventory.Changed += Refresh;
-
-            if (mainCategoriesPanel != null) mainCategoriesPanel.SetActive(true);
-            if (categoryViewPanel != null) categoryViewPanel.SetActive(true);
-
+            CloseShopWindow();
+            Subscribe();
+            ShowPanels();
             LockCamera(true);
             Refresh();
         }
 
         private void OnDisable()
         {
-            if (inventory != null)
-                inventory.Changed -= Refresh;
-
+            Unsubscribe();
             LockCamera(false);
+        }
+
+        public void ShowFurniture()
+        {
+            currentTab = InventoryTab.Furniture;
+            Refresh();
+        }
+
+        public void ShowProducts()
+        {
+            currentTab = InventoryTab.Products;
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            Clear();
+
+            switch (currentTab)
+            {
+                case InventoryTab.Products:
+                    RefreshProducts();
+                    return;
+
+                default:
+                    RefreshFurniture();
+                    return;
+            }
+        }
+
+        private void RefreshFurniture()
+        {
+            if (inventory == null || rowPrefab == null || listRoot == null)
+            {
+                SetEmpty(true);
+                return;
+            }
+
+            int shown = 0;
+
+            foreach (var entry in inventory.Entries)
+            {
+                if (!ShouldShowFurniture(entry))
+                    continue;
+
+                var row = Instantiate(rowPrefab, listRoot);
+
+                row.Bind(
+                    entry.item,
+                    entry.count,
+                    buildController,
+                    onPlace: () => gameObject.SetActive(false)
+                );
+
+                _spawnedRows.Add(row.gameObject);
+                shown++;
+            }
+
+            SetEmpty(shown == 0);
+        }
+
+        private void RefreshProducts()
+        {
+            if (productInventory == null || productRowPrefab == null || listRoot == null)
+            {
+                SetEmpty(true);
+                return;
+            }
+
+            int shown = 0;
+
+            foreach (var entry in productInventory.Entries)
+            {
+                if (entry == null || entry.Item == null || entry.Count <= 0)
+                    continue;
+
+                var row = Instantiate(productRowPrefab, listRoot);
+
+                row.Bind(
+                    entry.Item,
+                    entry.Count,
+                    productAssignMode,
+                    onSelected: () => gameObject.SetActive(false)
+                );
+
+                _spawnedRows.Add(row.gameObject);
+                shown++;
+            }
+
+            SetEmpty(shown == 0);
+        }
+
+        private bool ShouldShowFurniture(BuildInventory.Entry entry)
+        {
+            if (entry == null || entry.item == null || entry.count <= 0)
+                return false;
+
+            return IsFurnitureItem(entry.item);
         }
 
         private bool IsFurnitureItem(BuildItemData item)
         {
-            if (item == null) return false;
+            if (item == null)
+                return false;
 
             return item.category == BuildCategory.Shelf
                 || item.category == BuildCategory.Structures
                 || item.category == BuildCategory.Decoration;
         }
 
-        /* public void ShowProducts()
-         {
-             currentFilter = BuildCategory.Product;
-             Refresh();
-         }*/
-
-        public void Refresh()
-        {
-            Clear();
-
-            if (inventory == null || rowPrefab == null || listRoot == null)
-            {
-                if (emptyLabel != null) emptyLabel.SetActive(true);
-                return;
-            }
-
-            int shown = 0;
-
-            foreach (var e in inventory.Entries)
-            {
-                if (e == null || e.item == null || e.count <= 0)
-                    continue;
-
-                if (!IsFurnitureItem(e.item))
-                    continue;
-
-                var row = Instantiate(rowPrefab, listRoot);
-
-                row.Bind(
-                    e.item,
-                    e.count,
-                    buildController,
-                    onPlace: () => gameObject.SetActive(false)
-                );
-
-                _rows.Add(row);
-                shown++;
-            }
-
-            if (emptyLabel != null)
-                emptyLabel.SetActive(shown == 0);
-        }
-
         private void Clear()
         {
-            foreach (var r in _rows)
+            foreach (var row in _spawnedRows)
             {
-                if (r != null)
-                    Destroy(r.gameObject);
+                if (row != null)
+                    Destroy(row);
             }
 
-            _rows.Clear();
+            _spawnedRows.Clear();
+
+            if (listRoot == null)
+                return;
+
+            for (int i = listRoot.childCount - 1; i >= 0; i--)
+                Destroy(listRoot.GetChild(i).gameObject);
+        }
+
+        // =========================
+        // Setup
+        // =========================
+
+        private void FindMissingRefs()
+        {
+            if (inventory == null)
+                inventory = FindObjectOfType<BuildInventory>(true);
+
+            if (buildController == null)
+                buildController = FindObjectOfType<BuildController>(true);
+
+            if (productInventory == null)
+                productInventory = FindObjectOfType<ProductInventory>(true);
+
+            if (productAssignMode == null)
+                productAssignMode = FindObjectOfType<ProductAssignMode>(true);
+        }
+
+        private void PrepareCameraLock()
+        {
+            if (cameraBehavioursToDisable != null && cameraBehavioursToDisable.Length > 0)
+                return;
+
+            var cam = Camera.main;
+            if (cam == null)
+                return;
+
+            var mainCamera = cam.GetComponent<global::MainCamera>();
+            if (mainCamera == null)
+                return;
+
+            cameraBehavioursToDisable = new Behaviour[] { mainCamera };
+        }
+
+        private void Subscribe()
+        {
+            if (inventory != null)
+                inventory.Changed += Refresh;
+
+            if (productInventory != null)
+                productInventory.Changed += Refresh;
+        }
+
+        private void Unsubscribe()
+        {
+            if (inventory != null)
+                inventory.Changed -= Refresh;
+
+            if (productInventory != null)
+                productInventory.Changed -= Refresh;
+        }
+
+        private void CloseShopWindow()
+        {
+            if (shopWindow != null)
+                shopWindow.SetActive(false);
+        }
+
+        private void ShowPanels()
+        {
+            if (mainCategoriesPanel != null)
+                mainCategoriesPanel.SetActive(true);
+
+            if (categoryViewPanel != null)
+                categoryViewPanel.SetActive(true);
+        }
+
+        private void SetEmpty(bool visible)
+        {
+            if (emptyLabel != null)
+                emptyLabel.SetActive(visible);
         }
 
         private void LockCamera(bool locked)
         {
             if (locked)
             {
-                _cameraState.Clear();
-                if (cameraBehavioursToDisable == null) return;
-
-                for (int i = 0; i < cameraBehavioursToDisable.Length; i++)
-                {
-                    var b = cameraBehavioursToDisable[i];
-                    if (b == null) continue;
-
-                    if (b is Camera || b is AudioListener)
-                        continue;
-
-                    _cameraState.Add((b, b.enabled));
-                    b.enabled = false;
-                }
+                SaveAndDisableCameraBehaviours();
+                return;
             }
-            else
+
+            RestoreCameraBehaviours();
+        }
+
+        private void SaveAndDisableCameraBehaviours()
+        {
+            _cameraState.Clear();
+
+            if (cameraBehavioursToDisable == null)
+                return;
+
+            foreach (var behaviour in cameraBehavioursToDisable)
             {
-                for (int i = 0; i < _cameraState.Count; i++)
-                {
-                    var (b, wasEnabled) = _cameraState[i];
-                    if (b == null) continue;
-                    b.enabled = wasEnabled;
-                }
+                if (behaviour == null)
+                    continue;
 
-                _cameraState.Clear();
+                if (behaviour is Camera || behaviour is AudioListener)
+                    continue;
+
+                _cameraState.Add((behaviour, behaviour.enabled));
+                behaviour.enabled = false;
             }
+        }
+
+        private void RestoreCameraBehaviours()
+        {
+            foreach (var state in _cameraState)
+            {
+                if (state.behaviour == null)
+                    continue;
+
+                state.behaviour.enabled = state.wasEnabled;
+            }
+
+            _cameraState.Clear();
         }
     }
 }
