@@ -18,4 +18,5 @@ MonoBehaviour:
   buyPrice: 20
   sellPrice: 30
   boxAmount: 10
-  category: 3
+  storageType: 5
+  category: 0

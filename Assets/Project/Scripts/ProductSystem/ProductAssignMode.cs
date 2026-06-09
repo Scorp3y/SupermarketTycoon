@@ -18,6 +18,9 @@ namespace RetailEmpireTycoon.Shelves
         [SerializeField, Min(1f)] private float maxDistance = 2000f;
         [SerializeField] private bool blockWhenPointerOverUI = true;
 
+        [Header("Debug")]
+        [SerializeField] private bool debugLogs = true;
+
         private readonly List<PlacedShelfStock> _shelves = new List<PlacedShelfStock>();
         private ProductItemData _selectedProduct;
 
@@ -40,7 +43,7 @@ namespace RetailEmpireTycoon.Shelves
                 return;
             }
 
-            if (!Input.GetMouseButtonDown(0))
+            if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1))
                 return;
 
             TryAssignByMouse();
@@ -51,14 +54,23 @@ namespace RetailEmpireTycoon.Shelves
             if (product == null)
                 return;
 
+            FindMissingRefs();
+
             _selectedProduct = product;
 
             CacheShelves();
             RefreshHighlights();
+
+            Log("Begin assign: " + product.DisplayName + " / Type: " + product.StorageType);
+            Log("Shelves found: " + _shelves.Count);
+            Log("Inventory count: " + inventory.GetCount(product));
         }
 
         public void Cancel()
         {
+            if (_selectedProduct != null)
+                Log("Cancel assign: " + _selectedProduct.DisplayName);
+
             _selectedProduct = null;
             ClearHighlights();
         }
@@ -66,17 +78,32 @@ namespace RetailEmpireTycoon.Shelves
         private void TryAssignByMouse()
         {
             if (IsPointerBlockedByUI())
+            {
+                Log("Click blocked by UI.");
                 return;
+            }
 
             if (!TryRaycastShelf(out var shelf))
+            {
+                Log("No shelf hit.");
                 return;
+            }
+
+            Log("Hit shelf: " + shelf.name);
 
             if (!shelf.CanAccept(_selectedProduct))
+            {
+                Log("Shelf cannot accept: " + _selectedProduct.DisplayName + " / " + _selectedProduct.StorageType);
                 return;
+            }
 
             if (!shelf.RefillFromInventory(inventory, _selectedProduct))
+            {
+                Log("Refill failed. Inventory count: " + inventory.GetCount(_selectedProduct));
                 return;
+            }
 
+            Log("Refill success.");
             Cancel();
         }
 
@@ -93,11 +120,23 @@ namespace RetailEmpireTycoon.Shelves
             Ray ray = worldCamera.ScreenPointToRay(Input.mousePosition);
             int mask = shelfMask.value == 0 ? ~0 : shelfMask.value;
 
-            if (!Physics.Raycast(ray, out RaycastHit hit, maxDistance, mask, QueryTriggerInteraction.Collide))
+            RaycastHit[] hits = Physics.RaycastAll(ray, maxDistance, mask, QueryTriggerInteraction.Collide);
+
+            if (hits == null || hits.Length == 0)
                 return false;
 
-            shelf = hit.collider.GetComponentInParent<PlacedShelfStock>();
-            return shelf != null;
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+            foreach (var hit in hits)
+            {
+                shelf = hit.collider.GetComponentInParent<PlacedShelfStock>();
+
+                if (shelf != null)
+                    return true;
+            }
+
+            Log("Ray hit objects, but no PlacedShelfStock found.");
+            return false;
         }
 
         private void CacheShelves()
@@ -108,22 +147,36 @@ namespace RetailEmpireTycoon.Shelves
 
         private void RefreshHighlights()
         {
+            int available = 0;
+
             foreach (var shelf in _shelves)
-                SetShelfHighlight(shelf, shelf != null && shelf.CanAccept(_selectedProduct));
+            {
+                if (shelf == null)
+                    continue;
+
+                bool canAccept = shelf.CanAccept(_selectedProduct);
+                SetHighlight(shelf, canAccept);
+
+                if (canAccept)
+                    available++;
+            }
+
+            Log("Available shelves: " + available);
         }
 
         private void ClearHighlights()
         {
             foreach (var shelf in _shelves)
-                SetShelfHighlight(shelf, false);
+                SetHighlight(shelf, false);
         }
 
-        private static void SetShelfHighlight(PlacedShelfStock shelf, bool visible)
+        private static void SetHighlight(PlacedShelfStock shelf, bool visible)
         {
             if (shelf == null)
                 return;
 
             var highlight = shelf.GetComponent<ShelfHighlight>();
+
             if (highlight != null)
                 highlight.SetVisible(visible);
         }
@@ -142,6 +195,14 @@ namespace RetailEmpireTycoon.Shelves
 
             if (inventory == null)
                 inventory = FindObjectOfType<ProductInventory>(true);
+        }
+
+        private void Log(string message)
+        {
+            if (!debugLogs)
+                return;
+
+            Debug.Log("[ProductAssignMode] " + message);
         }
     }
 }

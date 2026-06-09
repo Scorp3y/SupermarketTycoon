@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using RetailEmpireTycoon.Core;
@@ -8,21 +9,33 @@ namespace RetailEmpireTycoon.Shelves
     [DisallowMultipleComponent]
     public sealed class PlacedShelfStock : MonoBehaviour
     {
-        [Header("Allowed Products")]
-        [SerializeField] private List<ProductItemData> allowedProducts = new List<ProductItemData>();
+        [Header("Shelf Type")]
+        [SerializeField] private ShelfStorageType shelfType = ShelfStorageType.Fresh;
+
+        [Header("Accepted Product Types")]
+        [SerializeField] private List<ProductStorageType> acceptedProductTypes = new List<ProductStorageType>();
+
+        [Header("Extra Product Rules")]
+        [SerializeField] private List<ProductItemData> extraAllowedProducts = new List<ProductItemData>();
+        [SerializeField] private List<ProductItemData> blockedProducts = new List<ProductItemData>();
 
         [Header("Stock")]
         [SerializeField] private ProductItemData currentProduct;
         [SerializeField, Min(0)] private int currentAmount;
         [SerializeField, Min(1)] private int maxAmount = 24;
 
-        [Header("Visual")]
-        [SerializeField] private GameObject emptyIcon;
+        [Header("Empty Visual")]
+        [SerializeField] private GameObject emptyMarker;
 
+        public event Action<PlacedShelfStock> Changed;
+
+        public ShelfStorageType ShelfType => shelfType;
         public ProductItemData CurrentProduct => currentProduct;
         public int CurrentAmount => currentAmount;
         public int MaxAmount => maxAmount;
-        public IReadOnlyList<ProductItemData> AllowedProducts => allowedProducts;
+        public int FreeSpace => Mathf.Max(0, maxAmount - currentAmount);
+        public bool IsEmpty => currentAmount <= 0;
+        public bool IsFull => currentAmount >= maxAmount;
 
         private void OnEnable()
         {
@@ -32,8 +45,8 @@ namespace RetailEmpireTycoon.Shelves
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            currentAmount = Mathf.Clamp(currentAmount, 0, maxAmount);
             maxAmount = Mathf.Max(1, maxAmount);
+            currentAmount = Mathf.Clamp(currentAmount, 0, maxAmount);
         }
 #endif
 
@@ -42,10 +55,10 @@ namespace RetailEmpireTycoon.Shelves
             if (product == null)
                 return false;
 
-            if (!IsProductAllowed(product))
+            if (IsFull)
                 return false;
 
-            if (IsFull)
+            if (!IsProductAllowed(product))
                 return false;
 
             return IsEmpty || currentProduct == product;
@@ -57,30 +70,36 @@ namespace RetailEmpireTycoon.Shelves
                 return false;
 
             int available = inventory.GetCount(product);
-            int amountToTake = Mathf.Min(available, FreeSpace);
+            int amountToMove = Mathf.Min(available, FreeSpace);
 
-            if (amountToTake <= 0)
+            if (amountToMove <= 0)
                 return false;
 
-            if (!inventory.TryConsume(product, amountToTake))
+            if (!inventory.TryConsume(product, amountToMove))
                 return false;
 
             currentProduct = product;
-            currentAmount += amountToTake;
+            currentAmount += amountToMove;
 
-            RefreshVisual();
+            NotifyChanged();
             return true;
         }
 
-        public bool IsProductAllowed(ProductItemData product)
+        public bool TryTakeOne(out ProductItemData product)
         {
-            return product != null && allowedProducts.Contains(product);
-        }
+            product = null;
 
-        public void RefreshVisual()
-        {
-            if (emptyIcon != null)
-                emptyIcon.SetActive(IsEmpty);
+            if (currentProduct == null || currentAmount <= 0)
+                return false;
+
+            product = currentProduct;
+            currentAmount--;
+
+            if (currentAmount <= 0)
+                currentProduct = null;
+
+            NotifyChanged();
+            return true;
         }
 
         public string GetProductName()
@@ -88,8 +107,31 @@ namespace RetailEmpireTycoon.Shelves
             return currentProduct != null ? currentProduct.DisplayName : "None";
         }
 
-        private bool IsEmpty => currentAmount <= 0;
-        private bool IsFull => currentAmount >= maxAmount;
-        private int FreeSpace => Mathf.Max(0, maxAmount - currentAmount);
+        public bool IsProductAllowed(ProductItemData product)
+        {
+            if (product == null)
+                return false;
+
+            if (blockedProducts.Contains(product))
+                return false;
+
+            if (extraAllowedProducts.Contains(product))
+                return true;
+
+            return acceptedProductTypes.Contains(ProductStorageType.Any)
+                || acceptedProductTypes.Contains(product.StorageType);
+        }
+
+        private void NotifyChanged()
+        {
+            RefreshVisual();
+            Changed?.Invoke(this);
+        }
+
+        private void RefreshVisual()
+        {
+            if (emptyMarker != null)
+                emptyMarker.SetActive(IsEmpty);
+        }
     }
 }

@@ -17,7 +17,10 @@ namespace RetailEmpireTycoon.Core
         [Header("Box")]
         [SerializeField, Min(1)] private int boxAmount = 10;
 
-        [Header("Category")]
+        [Header("Product Type")]
+        [SerializeField] private ProductStorageType storageType = ProductStorageType.Any;
+
+        [Header("Legacy Category")]
         [SerializeField] private ProductCategory category = ProductCategory.Any;
 
         public string Id => id;
@@ -26,6 +29,7 @@ namespace RetailEmpireTycoon.Core
         public int BuyPrice => buyPrice;
         public int SellPrice => sellPrice;
         public int BoxAmount => boxAmount;
+        public ProductStorageType StorageType => storageType;
         public ProductCategory Category => category;
 
 #if UNITY_EDITOR

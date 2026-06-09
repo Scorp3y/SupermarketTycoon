@@ -6,24 +6,48 @@ namespace RetailEmpireTycoon.Shelves
     [RequireComponent(typeof(LineRenderer))]
     public sealed class ShelfHighlight : MonoBehaviour
     {
-        [Header("Line")]
-        [SerializeField] private float yOffset = 0.05f;
-        [SerializeField] private float lineWidth = 0.04f;
-        [SerializeField] private Color color = new Color(0f, 1f, 0f, 0.65f);
+        [Header("Bounds Source")]
+        [SerializeField] private Collider boundsCollider;
+
+        [Header("Visual")]
+        [SerializeField] private Color color = new Color(0f, 1f, 0f, 0.28f);
+        [SerializeField, Min(0.001f)] private float lineWidth = 0.025f;
+        [SerializeField, Min(0f)] private float yOffset = 0.04f;
+        [SerializeField, Min(0f)] private float padding = 0.08f;
+
+        [Header("Material")]
+        [SerializeField] private Material lineMaterial;
 
         private LineRenderer _line;
 
         private void Awake()
         {
             _line = GetComponent<LineRenderer>();
+
+            if (boundsCollider == null)
+                boundsCollider = GetComponent<Collider>();
+
             ConfigureLine();
             SetVisible(false);
         }
 
-        public void SetVisible(bool visible)
+#if UNITY_EDITOR
+        private void OnValidate()
         {
             if (_line == null)
                 _line = GetComponent<LineRenderer>();
+
+            if (boundsCollider == null)
+                boundsCollider = GetComponent<Collider>();
+
+            if (_line != null)
+                ConfigureLine();
+        }
+#endif
+
+        public void SetVisible(bool visible)
+        {
+            EnsureLine();
 
             if (visible)
                 Rebuild();
@@ -33,6 +57,8 @@ namespace RetailEmpireTycoon.Shelves
 
         private void ConfigureLine()
         {
+            EnsureLine();
+
             _line.useWorldSpace = true;
             _line.loop = true;
             _line.positionCount = 4;
@@ -40,52 +66,43 @@ namespace RetailEmpireTycoon.Shelves
             _line.endWidth = lineWidth;
             _line.startColor = color;
             _line.endColor = color;
+            _line.material = lineMaterial != null ? lineMaterial : CreateDefaultMaterial();
         }
 
         private void Rebuild()
         {
-            Bounds bounds = GetObjectBounds();
+            Bounds bounds = GetBounds();
+
+            float minX = bounds.min.x - padding;
+            float maxX = bounds.max.x + padding;
+            float minZ = bounds.min.z - padding;
+            float maxZ = bounds.max.z + padding;
             float y = bounds.min.y + yOffset;
 
-            _line.SetPosition(0, new Vector3(bounds.min.x, y, bounds.min.z));
-            _line.SetPosition(1, new Vector3(bounds.min.x, y, bounds.max.z));
-            _line.SetPosition(2, new Vector3(bounds.max.x, y, bounds.max.z));
-            _line.SetPosition(3, new Vector3(bounds.max.x, y, bounds.min.z));
+            _line.SetPosition(0, new Vector3(minX, y, minZ));
+            _line.SetPosition(1, new Vector3(minX, y, maxZ));
+            _line.SetPosition(2, new Vector3(maxX, y, maxZ));
+            _line.SetPosition(3, new Vector3(maxX, y, minZ));
         }
 
-        private Bounds GetObjectBounds()
+        private Bounds GetBounds()
         {
-            var renderers = GetComponentsInChildren<Renderer>(true);
-
-            if (renderers.Length > 0)
-                return BuildRendererBounds(renderers);
-
-            var colliders = GetComponentsInChildren<Collider>(true);
-
-            if (colliders.Length > 0)
-                return BuildColliderBounds(colliders);
+            if (boundsCollider != null)
+                return boundsCollider.bounds;
 
             return new Bounds(transform.position, Vector3.one);
         }
 
-        private static Bounds BuildRendererBounds(Renderer[] renderers)
+        private void EnsureLine()
         {
-            Bounds bounds = renderers[0].bounds;
-
-            for (int i = 1; i < renderers.Length; i++)
-                bounds.Encapsulate(renderers[i].bounds);
-
-            return bounds;
+            if (_line == null)
+                _line = GetComponent<LineRenderer>();
         }
 
-        private static Bounds BuildColliderBounds(Collider[] colliders)
+        private static Material CreateDefaultMaterial()
         {
-            Bounds bounds = colliders[0].bounds;
-
-            for (int i = 1; i < colliders.Length; i++)
-                bounds.Encapsulate(colliders[i].bounds);
-
-            return bounds;
+            Shader shader = Shader.Find("Sprites/Default");
+            return shader != null ? new Material(shader) : null;
         }
     }
 }

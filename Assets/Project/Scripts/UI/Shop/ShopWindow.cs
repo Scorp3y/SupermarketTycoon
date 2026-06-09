@@ -22,16 +22,14 @@ namespace RetailEmpireTycoon.UI.Shop
         }
 
         [Header("Build Data")]
-        [Tooltip("Build items catalog: shelves, walls, doors, floors.")]
-        [SerializeField] private List<BuildItemData> catalog = new List<BuildItemData>();
+        [SerializeField] private List<BuildItemData> buildCatalog = new();
 
         [Header("Product Data")]
-        [SerializeField] private ProductCatalog productCatalog;
-        [SerializeField] private List<ProductItemData> fallbackProducts = new List<ProductItemData>();
+        [SerializeField] private List<ProductItemData> productCatalog = new();
 
         [Header("Scene Refs")]
         [SerializeField] private MoneyController money;
-        [SerializeField] private BuildInventory inventory;
+        [SerializeField] private BuildInventory buildInventory;
         [SerializeField] private ProductInventory productInventory;
 
         [Header("UI - Main Flow")]
@@ -44,18 +42,14 @@ namespace RetailEmpireTycoon.UI.Shop
 
         [Header("UI - List")]
         [SerializeField] private Transform listRoot;
-        [SerializeField] private ShopItemCard cardPrefab;
+        [SerializeField] private ShopItemCard buildCardPrefab;
         [SerializeField] private ProductShopItemCard productCardPrefab;
         [SerializeField] private GameObject buildInventoryWindow;
 
         [Header("State")]
-        [SerializeField] private BuildCategory shopFilter = BuildCategory.Shelf;
+        [SerializeField] private BuildCategory buildFilter = BuildCategory.Shelf;
 
-        [Header("Legacy (optional)")]
-        [Tooltip("Old tab-based shop UI. Keep empty if using the new main tab flow.")]
-        [SerializeField] private ShopTab_Build buildTab;
-
-        [Header("Camera Lock (optional)")]
+        [Header("Camera Lock")]
         [SerializeField] private Behaviour[] cameraBehavioursToDisable;
 
         private readonly List<(Behaviour behaviour, bool wasEnabled)> _cameraState = new();
@@ -69,6 +63,7 @@ namespace RetailEmpireTycoon.UI.Shop
 
         private void OnEnable()
         {
+            FindMissingRefs();
             LockCamera(true);
             HookBackButton();
             ShowMainTabs();
@@ -86,10 +81,6 @@ namespace RetailEmpireTycoon.UI.Shop
         {
             gameObject.SetActive(false);
         }
-
-        // =========================
-        // Main tabs
-        // =========================
 
         public void ShowMainTabs()
         {
@@ -137,10 +128,6 @@ namespace RetailEmpireTycoon.UI.Shop
             ShowMainTabs();
         }
 
-        // =========================
-        // Build categories
-        // =========================
-
         public void OpenCategory_Shelves()
         {
             OpenCategory(BuildCategory.Shelf);
@@ -159,7 +146,7 @@ namespace RetailEmpireTycoon.UI.Shop
         public void OpenCategory(BuildCategory category)
         {
             _viewMode = ViewMode.BuildItems;
-            shopFilter = category;
+            buildFilter = category;
 
             SetPanel(mainCategoriesPanel, true);
             SetPanel(mainTabsPanel, false);
@@ -169,29 +156,25 @@ namespace RetailEmpireTycoon.UI.Shop
             RefreshBuildItems();
         }
 
-        // =========================
-        // Refresh
-        // =========================
-
         public void Refresh()
         {
             switch (_viewMode)
             {
-                case ViewMode.BuildItems:
-                    RefreshBuildItems();
-                    return;
-
                 case ViewMode.Products:
                     RefreshProducts();
-                    return;
+                    break;
+
+                case ViewMode.BuildItems:
+                    RefreshBuildItems();
+                    break;
 
                 case ViewMode.BuildCategories:
                     OpenBuildCategories();
-                    return;
+                    break;
 
                 default:
                     ShowMainTabs();
-                    return;
+                    break;
             }
         }
 
@@ -199,21 +182,22 @@ namespace RetailEmpireTycoon.UI.Shop
         {
             ClearList();
 
-            if (listRoot == null || cardPrefab == null)
+            if (listRoot == null || buildCardPrefab == null)
             {
                 SetEmpty(true);
+                Debug.LogWarning("[ShopWindow] Build list root or build card prefab is missing.");
                 return;
             }
 
             int shown = 0;
 
-            foreach (var item in catalog)
+            foreach (var item in buildCatalog)
             {
-                if (!ShouldShowBuildItem(item))
+                if (item == null || item.category != buildFilter)
                     continue;
 
-                var card = Instantiate(cardPrefab, listRoot);
-                card.Bind(item, money, inventory);
+                var card = Instantiate(buildCardPrefab, listRoot);
+                card.Bind(item, money, buildInventory);
                 shown++;
             }
 
@@ -227,13 +211,16 @@ namespace RetailEmpireTycoon.UI.Shop
             if (listRoot == null || productCardPrefab == null)
             {
                 SetEmpty(true);
+                Debug.LogWarning("[ShopWindow] Product list root or product card prefab is missing.");
                 return;
             }
 
-            int shown = 0;
-            var products = GetProducts();
+            if (productCatalog.Count == 0)
+                Debug.LogWarning("[ShopWindow] Product catalog is empty. Add ProductItemData assets to Product Data.");
 
-            foreach (var product in products)
+            int shown = 0;
+
+            foreach (var product in productCatalog)
             {
                 if (product == null)
                     continue;
@@ -246,19 +233,6 @@ namespace RetailEmpireTycoon.UI.Shop
             SetEmpty(shown == 0);
         }
 
-        private bool ShouldShowBuildItem(BuildItemData item)
-        {
-            return item != null && item.category == shopFilter;
-        }
-
-        private IReadOnlyList<ProductItemData> GetProducts()
-        {
-            if (productCatalog != null && productCatalog.Products != null && productCatalog.Products.Count > 0)
-                return productCatalog.Products;
-
-            return fallbackProducts;
-        }
-
         private void ClearList()
         {
             if (listRoot == null)
@@ -268,23 +242,16 @@ namespace RetailEmpireTycoon.UI.Shop
                 Destroy(listRoot.GetChild(i).gameObject);
         }
 
-        // =========================
-        // Setup
-        // =========================
-
         private void FindMissingRefs()
         {
             if (money == null)
                 money = FindObjectOfType<MoneyController>(true);
 
-            if (inventory == null)
-                inventory = FindObjectOfType<BuildInventory>(true);
+            if (buildInventory == null)
+                buildInventory = FindObjectOfType<BuildInventory>(true);
 
             if (productInventory == null)
                 productInventory = FindObjectOfType<ProductInventory>(true);
-
-            if (productCatalog == null)
-                productCatalog = FindObjectOfType<ProductCatalog>(true);
         }
 
         private void PrepareCameraLock()
@@ -356,7 +323,7 @@ namespace RetailEmpireTycoon.UI.Shop
             _cameraState.Clear();
         }
 
-        private void SetPanel(GameObject panel, bool visible)
+        private static void SetPanel(GameObject panel, bool visible)
         {
             if (panel != null)
                 panel.SetActive(visible);

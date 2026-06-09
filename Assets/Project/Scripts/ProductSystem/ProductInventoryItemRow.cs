@@ -13,10 +13,12 @@ namespace RetailEmpireTycoon.UI.Products
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private TMP_Text countText;
-        [SerializeField] private Button selectButton;
+        [SerializeField] private TMP_Text productTypeText;
+        [SerializeField] private Button stockButton;
 
         [Header("Optional")]
         [SerializeField] private TMP_Text buttonText;
+        [SerializeField] private string stockButtonLabel = "STOCK";
 
         private ProductItemData _item;
         private ProductAssignMode _assignMode;
@@ -34,26 +36,24 @@ namespace RetailEmpireTycoon.UI.Products
 
         private void OnDestroy()
         {
-            if (selectButton == null)
-                return;
-
-            selectButton.onClick.RemoveListener(Select);
+            if (stockButton != null)
+                stockButton.onClick.RemoveListener(Select);
         }
 
         private void HookButton()
         {
-            if (selectButton == null)
+            if (stockButton == null)
                 return;
 
-            selectButton.onClick.RemoveAllListeners();
-            selectButton.onClick.AddListener(Select);
+            stockButton.onClick.RemoveAllListeners();
+            stockButton.onClick.AddListener(Select);
         }
 
         private void RefreshView(int count)
         {
             RefreshIcon();
             RefreshTexts(count);
-            RefreshButtonState(count);
+            RefreshButton(count);
         }
 
         private void RefreshIcon()
@@ -73,16 +73,19 @@ namespace RetailEmpireTycoon.UI.Products
             if (countText != null)
                 countText.text = "x" + Mathf.Max(0, count);
 
+            if (productTypeText != null)
+                productTypeText.text = _item != null ? _item.StorageType.ToString() : "None";
+
             if (buttonText != null)
-                buttonText.text = "PLACE";
+                buttonText.text = stockButtonLabel;
         }
 
-        private void RefreshButtonState(int count)
+        private void RefreshButton(int count)
         {
-            if (selectButton == null)
+            if (stockButton == null)
                 return;
 
-            selectButton.interactable = _item != null
+            stockButton.interactable = _item != null
                 && _assignMode != null
                 && count > 0;
         }
