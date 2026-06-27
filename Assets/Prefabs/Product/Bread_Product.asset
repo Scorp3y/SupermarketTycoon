@@ -19,4 +19,5 @@ MonoBehaviour:
   sellPrice: 20
   boxAmount: 10
   storageType: 1
+  shelfDisplayPrefab: {fileID: 1169889656079836700, guid: f40e861955140a14ab9f7abd6af08f79, type: 3}
   category: 0

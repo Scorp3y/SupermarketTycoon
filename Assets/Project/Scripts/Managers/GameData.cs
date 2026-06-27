@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using RetailEmpireTycoon.SaveSystem;
 
 [Serializable]
 public class GameData
@@ -11,6 +12,8 @@ public class GameData
     public List<BuildInventorySaveEntry> buildInventory = new List<BuildInventorySaveEntry>();
     public List<PlacedBuildSaveData> placedObjects = new List<PlacedBuildSaveData>();
     public List<FloorTileSaveData> floorTiles = new List<FloorTileSaveData>();
+    public List<ProductInventorySaveEntry> productInventory = new List<ProductInventorySaveEntry>();
+    public List<ShelfStockSaveEntry> shelfStocks = new List<ShelfStockSaveEntry>();
 }
 
 [Serializable]

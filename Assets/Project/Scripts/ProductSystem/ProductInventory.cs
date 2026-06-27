@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using RetailEmpireTycoon.Core;
+using RetailEmpireTycoon.SaveSystem;
 
 namespace RetailEmpireTycoon.Products
 {
@@ -38,14 +39,15 @@ namespace RetailEmpireTycoon.Products
             }
         }
 
-        [SerializeField] private List<Entry> entries = new();
+        [SerializeField] private List<Entry> entries = new List<Entry>();
 
         public IReadOnlyList<Entry> Entries => entries;
         public event Action Changed;
 
         public int GetCount(ProductItemData item)
         {
-            return FindEntry(item)?.Count ?? 0;
+            Entry entry = FindEntry(item);
+            return entry != null ? entry.Count : 0;
         }
 
         public bool Has(ProductItemData item, int amount = 1)
@@ -58,28 +60,29 @@ namespace RetailEmpireTycoon.Products
             if (item == null || amount <= 0)
                 return;
 
-            var entry = FindEntry(item);
+            Entry entry = FindEntry(item);
 
             if (entry == null)
-            {
                 entries.Add(new Entry(item, amount));
-                NotifyChanged();
-                return;
-            }
+            else
+                entry.Add(amount);
 
-            entry.Add(amount);
             NotifyChanged();
         }
 
         public bool TryConsume(ProductItemData item, int amount)
         {
-            var entry = FindEntry(item);
+            Entry entry = FindEntry(item);
 
-            if (entry == null || !entry.TryConsume(amount))
+            if (entry == null)
+                return false;
+
+            if (!entry.TryConsume(amount))
                 return false;
 
             RemoveEmptyEntries();
             NotifyChanged();
+
             return true;
         }
 
@@ -89,12 +92,76 @@ namespace RetailEmpireTycoon.Products
             NotifyChanged();
         }
 
+        public List<ProductInventorySaveEntry> BuildSaveData()
+        {
+            List<ProductInventorySaveEntry> data = new List<ProductInventorySaveEntry>();
+
+            foreach (Entry entry in entries)
+            {
+                if (entry == null || entry.Item == null)
+                    continue;
+
+                if (string.IsNullOrWhiteSpace(entry.Item.Id))
+                    continue;
+
+                if (entry.Count <= 0)
+                    continue;
+
+                data.Add(new ProductInventorySaveEntry
+                {
+                    productId = entry.Item.Id,
+                    count = entry.Count
+                });
+            }
+
+            return data;
+        }
+
+        public void ApplySaveData(List<ProductInventorySaveEntry> data, ProductCatalog catalog)
+        {
+            entries.Clear();
+
+            if (data == null || catalog == null)
+            {
+                NotifyChanged();
+                return;
+            }
+
+            foreach (ProductInventorySaveEntry entryData in data)
+            {
+                if (entryData == null)
+                    continue;
+
+                if (entryData.count <= 0)
+                    continue;
+
+                ProductItemData product = catalog.GetById(entryData.productId);
+
+                if (product == null)
+                {
+                    Debug.LogWarning("[ProductInventory] Product not found by id: " + entryData.productId, this);
+                    continue;
+                }
+
+                entries.Add(new Entry(product, entryData.count));
+            }
+
+            RemoveEmptyEntries();
+            NotifyChanged();
+        }
+
         private Entry FindEntry(ProductItemData item)
         {
             if (item == null)
                 return null;
 
-            return entries.Find(entry => entry != null && entry.Item == item);
+            foreach (Entry entry in entries)
+            {
+                if (entry != null && entry.Item == item)
+                    return entry;
+            }
+
+            return null;
         }
 
         private void RemoveEmptyEntries()

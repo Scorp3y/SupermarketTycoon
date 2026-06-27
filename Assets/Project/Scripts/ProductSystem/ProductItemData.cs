@@ -20,6 +20,9 @@ namespace RetailEmpireTycoon.Core
         [Header("Product Type")]
         [SerializeField] private ProductStorageType storageType = ProductStorageType.Any;
 
+        [Header("Shelf Visual")]
+        [SerializeField] private GameObject shelfDisplayPrefab;
+
         [Header("Legacy Category")]
         [SerializeField] private ProductCategory category = ProductCategory.Any;
 
@@ -30,6 +33,7 @@ namespace RetailEmpireTycoon.Core
         public int SellPrice => sellPrice;
         public int BoxAmount => boxAmount;
         public ProductStorageType StorageType => storageType;
+        public GameObject ShelfDisplayPrefab => shelfDisplayPrefab;
         public ProductCategory Category => category;
 
 #if UNITY_EDITOR

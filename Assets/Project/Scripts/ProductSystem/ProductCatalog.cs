@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using RetailEmpireTycoon.Core;
 
@@ -7,9 +7,9 @@ namespace RetailEmpireTycoon.Products
     [DisallowMultipleComponent]
     public sealed class ProductCatalog : MonoBehaviour
     {
-        [SerializeField] private List<ProductItemData> products = new();
+        [SerializeField] private List<ProductItemData> products = new List<ProductItemData>();
 
-        private readonly Dictionary<string, ProductItemData> _byId = new();
+        private readonly Dictionary<string, ProductItemData> _byId = new Dictionary<string, ProductItemData>();
 
         public IReadOnlyList<ProductItemData> Products => products;
 
@@ -21,7 +21,8 @@ namespace RetailEmpireTycoon.Products
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            products.RemoveAll(item => item == null);
+            // Важно: НЕ удаляем null элементы.
+            // Иначе Unity не даёт увеличить Size списка через Inspector.
         }
 #endif
 
@@ -30,32 +31,30 @@ namespace RetailEmpireTycoon.Products
             if (string.IsNullOrWhiteSpace(id))
                 return null;
 
-            return _byId.TryGetValue(id, out var product) ? product : null;
+            if (_byId.Count == 0)
+                RebuildCache();
+
+            return _byId.TryGetValue(id, out ProductItemData product) ? product : null;
         }
 
-        public bool Contains(ProductItemData product)
-        {
-            return product != null && products.Contains(product);
-        }
-
-        private void RebuildCache()
+        public void RebuildCache()
         {
             _byId.Clear();
 
-            foreach (var product in products)
+            foreach (ProductItemData product in products)
             {
                 if (product == null)
                     continue;
 
                 if (string.IsNullOrWhiteSpace(product.Id))
                 {
-                    Debug.LogWarning($"[ProductCatalog] Product '{product.name}' has empty Id.");
+                    Debug.LogWarning("[ProductCatalog] Product has empty Id: " + product.name, this);
                     continue;
                 }
 
                 if (_byId.ContainsKey(product.Id))
                 {
-                    Debug.LogWarning($"[ProductCatalog] Duplicate product Id: {product.Id}");
+                    Debug.LogWarning("[ProductCatalog] Duplicate product Id: " + product.Id, this);
                     continue;
                 }
 

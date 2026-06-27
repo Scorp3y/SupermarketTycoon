@@ -47,6 +47,9 @@ namespace RetailEmpireTycoon.Shelves
         {
             maxAmount = Mathf.Max(1, maxAmount);
             currentAmount = Mathf.Clamp(currentAmount, 0, maxAmount);
+
+            if (currentAmount <= 0)
+                currentProduct = null;
         }
 #endif
 
@@ -100,6 +103,32 @@ namespace RetailEmpireTycoon.Shelves
 
             NotifyChanged();
             return true;
+        }
+
+        public void SetStockFromSave(ProductItemData product, int amount)
+        {
+            if (product == null || amount <= 0)
+            {
+                currentProduct = null;
+                currentAmount = 0;
+                NotifyChanged();
+                return;
+            }
+
+            currentProduct = product;
+            currentAmount = Mathf.Clamp(amount, 0, maxAmount);
+
+            if (currentAmount <= 0)
+                currentProduct = null;
+
+            NotifyChanged();
+        }
+
+        public void ClearStock()
+        {
+            currentProduct = null;
+            currentAmount = 0;
+            NotifyChanged();
         }
 
         public string GetProductName()

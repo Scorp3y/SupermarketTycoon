@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using RetailEmpireTycoon.Economy;
 using RetailEmpireTycoon.BuildSystem;
+using RetailEmpireTycoon.SaveSystem;
 
 public class SaveManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class SaveManager : MonoBehaviour
     private GameData gameData;
 
     public static SaveManager Instance;
+
 
     [Header("UI")]
     public Button saveButton;
@@ -23,6 +25,7 @@ public class SaveManager : MonoBehaviour
     [SerializeField] private BuildController _buildController;
     [SerializeField] private FloorPainter _floorPainter;
     [SerializeField] private BuildItemCatalog _buildCatalog;
+    [SerializeField] private ProductSaveService productSaveService;
 
     [Header("Territory/Store")]
     [SerializeField] private StorePrefabSpawner _storeSpawner;
@@ -32,6 +35,9 @@ public class SaveManager : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         else { Destroy(gameObject); return; }
+
+        if (productSaveService == null)
+            productSaveService = FindObjectOfType<ProductSaveService>(true);
 
         saveFilePath = Path.Combine(Application.persistentDataPath, "gameData.json");
         gameData = new GameData();
@@ -70,7 +76,12 @@ public class SaveManager : MonoBehaviour
 
         if (_storeSpawner == null)
             _storeSpawner = FindObjectOfType<StorePrefabSpawner>(true);
+
+        if (productSaveService == null)
+            productSaveService = FindObjectOfType<ProductSaveService>(true);
     }
+
+
 
     private IEnumerator LoadAfterOneFrame()
     {
@@ -79,6 +90,7 @@ public class SaveManager : MonoBehaviour
 
         LoadGame();
     }
+
 
     public void SaveGame()
     {
@@ -100,6 +112,12 @@ public class SaveManager : MonoBehaviour
 
         if (_floorPainter != null)
             gameData.floorTiles = _floorPainter.BuildSaveData();
+
+        if (productSaveService != null)
+        {
+            gameData.productInventory = productSaveService.BuildWarehouseSaveData();
+            gameData.shelfStocks = productSaveService.BuildShelfSaveData();
+        }
 
         string json = JsonUtility.ToJson(gameData, true);
         File.WriteAllText(saveFilePath, json);
@@ -136,8 +154,11 @@ public class SaveManager : MonoBehaviour
         if (_floorPainter != null && _buildCatalog != null)
             _floorPainter.ApplySaveData(gameData.floorTiles, _buildCatalog);
 
+        StartCoroutine(LoadProductsAfterWorldLoaded(gameData));
+
         Debug.Log("[SaveManager] Loaded: " + saveFilePath);
     }
+
 
     private void SpawnStoreFromProgressOrDefault()
     {
@@ -153,6 +174,29 @@ public class SaveManager : MonoBehaviour
         }
 
         _storeSpawner.Spawn(desiredLevel);
+    }
+
+    private IEnumerator LoadProductsAfterWorldLoaded(GameData loadedData)
+    {
+        yield return null;
+        yield return null;
+
+        if (loadedData == null)
+            yield break;
+
+        if (productSaveService == null)
+            productSaveService = FindObjectOfType<ProductSaveService>(true);
+
+        if (productSaveService == null)
+        {
+            Debug.LogWarning("[SaveManager] ProductSaveService not found. Products were not loaded.");
+            yield break;
+        }
+
+        productSaveService.ApplyWarehouseSaveData(loadedData.productInventory);
+        productSaveService.ApplyShelfSaveData(loadedData.shelfStocks);
+
+        Debug.Log("[SaveManager] Products loaded.");
     }
 
     public void AutoSave()
